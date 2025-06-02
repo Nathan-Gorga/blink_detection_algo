@@ -12,7 +12,7 @@ import mne
 import matplotlib.pyplot as plt
 
 
-#turning this into a function to call it in the main code
+###turning this into a function to call it in the main code
 
 def XDFDataUI(path=r'C:\Users\n.gorga\code\processRawData\data\sub-P001_ses-S001_task-Default_run-001_eeg.xdf'):
     # Load XDF file
@@ -31,38 +31,7 @@ def XDFDataUI(path=r'C:\Users\n.gorga\code\processRawData\data\sub-P001_ses-S001
 
     if eeg_stream is None:
         raise RuntimeError("No EEG stream found in XDF file.")
-    '''
-    # Extract EEG info
-    data = np.array(eeg_stream['time_series'])
-    timestamps = np.array(eeg_stream['time_stamps'])
-
-    sfreq = float(eeg_stream['info']['nominal_srate'][0])
-    n_channels = int(eeg_stream['info']['channel_count'][0])
-
-    # Get channel names (if available)
-    try:
-        ch_names = [ch['label'][0] for ch in eeg_stream['info']['desc'][0]['channels'][0]['channel']]
-    except Exception:
-        ch_names = [f"EEG{i}" for i in range(n_channels)]
-
-    # Define MNE info structure
-    info = mne.create_info(ch_names=ch_names, sfreq=sfreq, ch_types='eeg')
-
-    # Create MNE Raw object
-    raw = mne.io.RawArray(data.T, info)
-
-    # Optional: set a standard EEG montage (e.g., 10-20 system)
-    raw.set_montage('standard_1020', match_case=False)
-
-    # Plot raw EEG
-    raw.plot(scalings='auto', duration=10, n_channels=n_channels, title="Raw EEG")
-
-    # Optional: Filtering
-    # raw.filter(1., 40., fir_design='firwin')
-
-    # Save as .fif or process further
-    # raw.save('eeg_raw.fif', overwrite=True)
-    '''
+    
 
     # Simulated from your provided data
     data = np.array(eeg_stream['time_series']).T  # shape: (n_channels, n_samples)
