@@ -62,7 +62,7 @@ def segmentChannelData(raw_data):
 import numpy as np
 import matplotlib.pyplot as plt
 
-def printOneChannel(channel_data, color='blue', num=1):
+def printOneChannel(channel_data, color='blue', num=1, name=None):
     """
     Plots a single EEG channel's 2D data (x and y values) over sample indices.
 
@@ -78,12 +78,13 @@ def printOneChannel(channel_data, color='blue', num=1):
     y = channel_data[:, 1]  # using only y-dimension for signal shape
 
     plt.figure(figsize=(10, 4))
-    plt.plot(time, y, color=color, linewidth=0.8, label=f'Channel {num}')
+    
+    plt.plot(time, y, color=color, linewidth=0.8, label=name)
     plt.scatter(time, y, color=color, s=5)
 
     plt.xlabel("Sample Index")
     plt.ylabel("Signal Value")
-    plt.title(f"EEG Channel {num}")
+    plt.title(name)
     plt.grid(True)
     plt.legend()
 

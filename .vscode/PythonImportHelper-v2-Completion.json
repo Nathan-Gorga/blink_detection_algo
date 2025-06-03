@@ -25,6 +25,14 @@
         "documentation": {}
     },
     {
+        "label": "printOneChannel",
+        "importPath": "printData",
+        "description": "printData",
+        "isExtraImport": true,
+        "detail": "printData",
+        "documentation": {}
+    },
+    {
         "label": "segmentChannelData",
         "importPath": "printData",
         "description": "printData",
@@ -34,6 +42,14 @@
     },
     {
         "label": "bufferSizesFromChannel",
+        "importPath": "buffer",
+        "description": "buffer",
+        "isExtraImport": true,
+        "detail": "buffer",
+        "documentation": {}
+    },
+    {
+        "label": "bufferChannel",
         "importPath": "buffer",
         "description": "buffer",
         "isExtraImport": true,
@@ -63,7 +79,16 @@
         "kind": 2,
         "importPath": "buffer",
         "description": "buffer",
-        "peekOfCode": "def bufferSizesFromChannel(channel_data,bufferSize=150):\n    channelSize = len(channel_data)\n    bufferStartPoints = [0]\n    check = bufferSize\n    while check <= channelSize:\n        bufferStartPoints.append(check)\n        check += bufferSize\n    return bufferStartPoints",
+        "peekOfCode": "def bufferSizesFromChannel(channel_data,bufferSize=150):\n    channelSize = len(channel_data)\n    bufferStartPoints = [0]\n    check = bufferSize\n    while check <= channelSize:\n        bufferStartPoints.append(check)\n        check += bufferSize\n    return bufferStartPoints\ndef bufferChannel(channel_data, bufferStarts):\n    bufferListSize = len(bufferStarts)",
+        "detail": "buffer",
+        "documentation": {}
+    },
+    {
+        "label": "bufferChannel",
+        "kind": 2,
+        "importPath": "buffer",
+        "description": "buffer",
+        "peekOfCode": "def bufferChannel(channel_data, bufferStarts):\n    bufferListSize = len(bufferStarts)\n    bufferedChannel = []\n    for i in  range(bufferListSize - 1): #-1 to prevent overflow with i+1\n        start = bufferStarts[i]\n        stop = bufferStarts[i+1]\n        bufferedChannel.append(channel_data[start:stop])\n    return bufferedChannel",
         "detail": "buffer",
         "documentation": {}
     },
@@ -99,7 +124,7 @@
         "kind": 2,
         "importPath": "printData",
         "description": "printData",
-        "peekOfCode": "def printOneChannel(channel_data, color='blue', num=1):\n    \"\"\"\n    Plots a single EEG channel's 2D data (x and y values) over sample indices.\n    Parameters:\n    - channel_data: Nx2 array with x and y data for one channel.\n    - color: matplotlib color for the plot.\n    - num: channel number (for labeling).\n    \"\"\"\n    # X-axis: time/sample index\n    time = np.arange(len(channel_data))",
+        "peekOfCode": "def printOneChannel(channel_data, color='blue', num=1, name=None):\n    \"\"\"\n    Plots a single EEG channel's 2D data (x and y values) over sample indices.\n    Parameters:\n    - channel_data: Nx2 array with x and y data for one channel.\n    - color: matplotlib color for the plot.\n    - num: channel number (for labeling).\n    \"\"\"\n    # X-axis: time/sample index\n    time = np.arange(len(channel_data))",
         "detail": "printData",
         "documentation": {}
     },
