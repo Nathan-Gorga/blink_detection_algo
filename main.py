@@ -1,13 +1,13 @@
 # python lib imports
 import matplotlib.pyplot as plt
-import numpy as np
+from Calibration import calibrate
 
 # my lib imports
-from PrintData import *
-from Buffer import *
-from Detect import *
-from Calibration import *
-from Utils import *
+from Calibration import calibrate
+from Utils import getDataFromFile
+from Buffer import segmentChannelByBuffer
+from Detect import detectWithThreshold
+from PrintData import printBlinks
 
 
 if __name__ == "__main__":
@@ -19,16 +19,13 @@ if __name__ == "__main__":
 
     channels :list[list[float]] = getDataFromFile(path)
     
+    buffer_size = 10
     
-    bufferSize :int = 10
+    segmented_channel_by_buffer = segmentChannelByBuffer(channels[0], buffer_size)
     
-    buffer_sizes_for_channel :list[int] = bufferSizesFromChannel(channels[0],bufferSize)
+    is_there_blink_in_buffer :list[bool] = detectWithThreshold(segmented_channel_by_buffer,threshold)
     
-    segmentedChannelByBuffer :list[list[float]] = bufferChannel(channels[0],buffer_sizes_for_channel)
-    
-    isThereBlinkInBuffer :list[bool] = detectWithThreshold(segmentedChannelByBuffer,threshold)
-    
-    printBlinks(channels[0],bufferSize,isThereBlinkInBuffer)
+    printBlinks(channels[0],buffer_size,is_there_blink_in_buffer)
     
     plt.axhline(y=threshold, color="orange", linestyle='--', linewidth=1)
     

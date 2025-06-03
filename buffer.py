@@ -51,3 +51,14 @@ def separateChannelData(raw_data :list[list[float]]):
         channels.append(channel_data)
 
     return channels
+    
+
+def segmentChannelByBuffer(channel_data :list[float], buffer_size = 10):
+    
+    buffer_sizes_for_channel :list[int] = bufferSizesFromChannel(channel_data, buffer_size)
+
+    segmentedChannelByBuffer :list[list[float]] = bufferChannel(channel_data,buffer_sizes_for_channel)
+
+    return segmentedChannelByBuffer
+    
+    

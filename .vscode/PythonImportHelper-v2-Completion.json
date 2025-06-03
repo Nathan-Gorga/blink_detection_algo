@@ -17,7 +17,7 @@
         "documentation": {}
     },
     {
-        "label": "*",
+        "label": "detectWithThreshold",
         "importPath": "Detect",
         "description": "Detect",
         "isExtraImport": true,
@@ -25,7 +25,7 @@
         "documentation": {}
     },
     {
-        "label": "bufferSizesFromChannel",
+        "label": "segmentChannelByBuffer",
         "importPath": "Buffer",
         "description": "Buffer",
         "isExtraImport": true,
@@ -33,15 +33,7 @@
         "documentation": {}
     },
     {
-        "label": "bufferChannel",
-        "importPath": "Buffer",
-        "description": "Buffer",
-        "isExtraImport": true,
-        "detail": "Buffer",
-        "documentation": {}
-    },
-    {
-        "label": "*",
+        "label": "segmentChannelByBuffer",
         "importPath": "Buffer",
         "description": "Buffer",
         "isExtraImport": true,
@@ -65,7 +57,7 @@
         "documentation": {}
     },
     {
-        "label": "*",
+        "label": "getDataFromFile",
         "importPath": "Utils",
         "description": "Utils",
         "isExtraImport": true,
@@ -82,19 +74,27 @@
         "documentation": {}
     },
     {
-        "label": "*",
-        "importPath": "PrintData",
-        "description": "PrintData",
-        "isExtraImport": true,
-        "detail": "PrintData",
-        "documentation": {}
-    },
-    {
-        "label": "*",
+        "label": "calibrate",
         "importPath": "Calibration",
         "description": "Calibration",
         "isExtraImport": true,
         "detail": "Calibration",
+        "documentation": {}
+    },
+    {
+        "label": "calibrate",
+        "importPath": "Calibration",
+        "description": "Calibration",
+        "isExtraImport": true,
+        "detail": "Calibration",
+        "documentation": {}
+    },
+    {
+        "label": "printBlinks",
+        "importPath": "PrintData",
+        "description": "PrintData",
+        "isExtraImport": true,
+        "detail": "PrintData",
         "documentation": {}
     },
     {
@@ -129,7 +129,16 @@
         "kind": 2,
         "importPath": "Buffer",
         "description": "Buffer",
-        "peekOfCode": "def separateChannelData(raw_data :list[list[float]]):\n    num_channels :int = raw_data.shape[1] // 2\n    channels :list[list[float]] = []\n    for i in range(num_channels):\n        x = raw_data[:, 2 * i] \n        y = raw_data[:, 2 * i + 1]\n        channel_data = np.stack((x, y), axis=1) \n        channels.append(channel_data)\n    return channels",
+        "peekOfCode": "def separateChannelData(raw_data :list[list[float]]):\n    num_channels :int = raw_data.shape[1] // 2\n    channels :list[list[float]] = []\n    for i in range(num_channels):\n        x = raw_data[:, 2 * i] \n        y = raw_data[:, 2 * i + 1]\n        channel_data = np.stack((x, y), axis=1) \n        channels.append(channel_data)\n    return channels\ndef segmentChannelByBuffer(channel_data :list[float], buffer_size = 10):",
+        "detail": "Buffer",
+        "documentation": {}
+    },
+    {
+        "label": "segmentChannelByBuffer",
+        "kind": 2,
+        "importPath": "Buffer",
+        "description": "Buffer",
+        "peekOfCode": "def segmentChannelByBuffer(channel_data :list[float], buffer_size = 10):\n    buffer_sizes_for_channel :list[int] = bufferSizesFromChannel(channel_data, buffer_size)\n    segmentedChannelByBuffer :list[list[float]] = bufferChannel(channel_data,buffer_sizes_for_channel)\n    return segmentedChannelByBuffer",
         "detail": "Buffer",
         "documentation": {}
     },

@@ -3,7 +3,7 @@ import numpy as np
 
 # my lib imports
 from Detect import detectWithThreshold
-from Buffer import bufferSizesFromChannel, bufferChannel
+from Buffer import segmentChannelByBuffer
 from Utils import getDataFromFile
 
 def findAverageBlinkHeight(is_there_blink_in_buffer :list[bool], segmented_channel_by_buffer :list[list[float]]):
@@ -53,9 +53,9 @@ def calibrate(path=r'data\calibration\calibration_data.xdf'):
        
     # use this for detecting blinks
 
-    buffer_sizes :list[int] = bufferSizesFromChannel(calibration_channel,buffer_size)
     
-    segmented_channel_by_buffer :list[list[float]] = bufferChannel(calibration_channel,buffer_sizes)
+    
+    segmented_channel_by_buffer :list[list[float]] = segmentChannelByBuffer(calibration_channel, buffer_size)
     
     is_there_blink_in_buffer :list[bool] = detectWithThreshold(segmented_channel_by_buffer,first_threshold)
     
