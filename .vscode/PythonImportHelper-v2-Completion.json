@@ -156,7 +156,7 @@
         "kind": 2,
         "importPath": "Detect",
         "description": "Detect",
-        "peekOfCode": "def cleanDetect(isBlink):\n    previous = False\n    size = len(isBlink)\n    for i in range(size):\n        temp = previous\n        previous = isBlink[i]\n        if isBlink[i] and temp:\n            isBlink[i] = False\n    return isBlink\ndef detectWithThreshold(bChannel,threshold=150):",
+        "peekOfCode": "def cleanDetect(is_there_blink_in_buffer :list[bool]):\n    previous :bool = False\n    size :int = len(is_there_blink_in_buffer)\n    for i in range(size):\n        temp :bool = previous\n        previous :bool = is_there_blink_in_buffer[i]\n        if is_there_blink_in_buffer[i] and temp:\n            is_there_blink_in_buffer[i] = False\n    return is_there_blink_in_buffer\ndef detectWithThreshold(segmented_channel_by_buffer :list[list[float]], threshold :int = 150):",
         "detail": "Detect",
         "documentation": {}
     },
@@ -165,7 +165,7 @@
         "kind": 2,
         "importPath": "Detect",
         "description": "Detect",
-        "peekOfCode": "def detectWithThreshold(bChannel,threshold=150):\n    ret = []\n    for buffer in bChannel:   \n        ret.append(any(buffer[:] >= threshold))    \n    return cleanDetect(ret)",
+        "peekOfCode": "def detectWithThreshold(segmented_channel_by_buffer :list[list[float]], threshold :int = 150):\n    ret :list[bool] = []\n    for buffer in segmented_channel_by_buffer:   \n        ret.append(any(buffer[:] >= threshold))    \n    return cleanDetect(ret)",
         "detail": "Detect",
         "documentation": {}
     },
