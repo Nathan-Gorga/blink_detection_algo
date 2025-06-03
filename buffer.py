@@ -25,7 +25,7 @@ def bufferChannel(channel_data, bufferStarts):
     return bufferedChannel
 
 
-def segmentChannelData(raw_data):
+def separateChannelData(raw_data):
     numChannels = raw_data.shape[1] // 2
     channels = []
 

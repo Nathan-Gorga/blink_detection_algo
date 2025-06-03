@@ -49,7 +49,7 @@
         "documentation": {}
     },
     {
-        "label": "*",
+        "label": "separateChannelData",
         "importPath": "Buffer",
         "description": "Buffer",
         "isExtraImport": true,
@@ -120,16 +120,16 @@
         "kind": 2,
         "importPath": "Buffer",
         "description": "Buffer",
-        "peekOfCode": "def bufferChannel(channel_data, bufferStarts):\n    bufferListSize = len(bufferStarts)\n    bufferedChannel = []\n    for i in  range(bufferListSize - 1): #-1 to prevent overflow with i+1\n        start = bufferStarts[i]\n        stop = bufferStarts[i+1]\n        bufferedChannel.append(channel_data[start:stop])\n    return bufferedChannel\ndef segmentChannelData(raw_data):\n    numChannels = raw_data.shape[1] // 2",
+        "peekOfCode": "def bufferChannel(channel_data, bufferStarts):\n    bufferListSize = len(bufferStarts)\n    bufferedChannel = []\n    for i in  range(bufferListSize - 1): #-1 to prevent overflow with i+1\n        start = bufferStarts[i]\n        stop = bufferStarts[i+1]\n        bufferedChannel.append(channel_data[start:stop])\n    return bufferedChannel\ndef separateChannelData(raw_data):\n    numChannels = raw_data.shape[1] // 2",
         "detail": "Buffer",
         "documentation": {}
     },
     {
-        "label": "segmentChannelData",
+        "label": "separateChannelData",
         "kind": 2,
         "importPath": "Buffer",
         "description": "Buffer",
-        "peekOfCode": "def segmentChannelData(raw_data):\n    numChannels = raw_data.shape[1] // 2\n    channels = []\n    for i in range(numChannels):\n        x = raw_data[:, 2 * i]\n        y = raw_data[:, 2 * i + 1]\n        channel_data = np.stack((x, y), axis=1) \n        channels.append(channel_data)\n    return channels",
+        "peekOfCode": "def separateChannelData(raw_data):\n    numChannels = raw_data.shape[1] // 2\n    channels = []\n    for i in range(numChannels):\n        x = raw_data[:, 2 * i]\n        y = raw_data[:, 2 * i + 1]\n        channel_data = np.stack((x, y), axis=1) \n        channels.append(channel_data)\n    return channels",
         "detail": "Buffer",
         "documentation": {}
     },
@@ -215,11 +215,11 @@
         "documentation": {}
     },
     {
-        "label": "extract_eeg_data",
+        "label": "extractEEGData",
         "kind": 2,
         "importPath": "Utils",
         "description": "Utils",
-        "peekOfCode": "def extract_eeg_data(xdf_path):\n    streams, _ = pyxdf.load_xdf(xdf_path)\n    for stream in streams:\n        data = np.array(stream['time_series'])\n        return data\n    raise RuntimeError(\"Aucun flux EEG trouvé dans le fichier .xdf.\")\ndef getDataFromFile(path):\n    raw_data = extract_eeg_data(path)\n    raw_channels = segmentChannelData(raw_data)\n    channels = []",
+        "peekOfCode": "def extractEEGData(xdf_path :str):\n    streams , _ = pyxdf.load_xdf(xdf_path)\n    for stream in streams:\n        data = np.array(stream['time_series'])\n        return data\n    raise RuntimeError(\"Aucun flux EEG trouvé dans le fichier .xdf.\")\ndef getDataFromFile(path :str):\n    raw_data :list[list[float]] = extractEEGData(path)\n    raw_channels :list[list[float]] = separateChannelData(raw_data)\n    channels :list[list[float]] = []",
         "detail": "Utils",
         "documentation": {}
     },
@@ -228,7 +228,7 @@
         "kind": 2,
         "importPath": "Utils",
         "description": "Utils",
-        "peekOfCode": "def getDataFromFile(path):\n    raw_data = extract_eeg_data(path)\n    raw_channels = segmentChannelData(raw_data)\n    channels = []\n    for raw_channel in raw_channels:\n        channels.append(raw_channel[:,1])\n    return channels",
+        "peekOfCode": "def getDataFromFile(path :str):\n    raw_data :list[list[float]] = extractEEGData(path)\n    raw_channels :list[list[float]] = separateChannelData(raw_data)\n    channels :list[list[float]] = []\n    for raw_channel in raw_channels:\n        channels.append(raw_channel[:,1])\n    return channels",
         "detail": "Utils",
         "documentation": {}
     }
