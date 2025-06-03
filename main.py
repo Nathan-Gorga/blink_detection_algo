@@ -1,4 +1,4 @@
-from eegDataProcessor import XDFDataUI
+
 import pyxdf
 import numpy as np
 
@@ -15,28 +15,38 @@ def extract_eeg_data(xdf_path):
 
     raise RuntimeError("Aucun flux EEG trouvé dans le fichier .xdf.")
 
-def printOneChannel(channel_data, color='blue', num=1):
-    # X-axis: sample indices (time)
-    x = np.arange(len(channel_data))
-    
-    # Y-axis: channel values (position)
-    # I think channel_data[:, 0] might be the noise separated from the data, comming from the D_G electrode, therefore we can ignore it
-    y = channel_data[:, 1]  
+def printAllChannels(channels, colors=None):
+    num_channels = len(channels)
+    if num_channels == 0:
+        print("No channels to display.")
+        return
 
-   
+    if colors is None:
+        colors = ['red', 'blue', 'green', 'orange']
 
-    plt.figure(figsize=(10, 6))
-    plt.scatter(x, y, color=color, label=f'Channel {num}', s=10)
+    # Handle up to 4 subplots in 1 column
+    fig, axs = plt.subplots(num_channels, 1, figsize=(12, 3 * num_channels), sharex=True)
 
-    # Draw lines between consecutive points in the same array 
-    plt.plot(x, y, color=color, linewidth=0.5)
+    if num_channels == 1:
+        axs = [axs]  # make it iterable
 
-    plt.xlabel("X")
-    plt.ylabel("Y")
-    plt.title(f"Raw 2D Data - Channel {num} with Connecting Lines")
-    plt.legend()
-    plt.grid(True)
-    plt.axis('equal')
+    for i, (channel_data, ax) in enumerate(zip(channels, axs)):
+        x = np.arange(len(channel_data))
+        y = channel_data[:, 1]  # Assuming column 1 is denoised signal
+
+        ax.scatter(x, y, color=colors[i % len(colors)], s=10, label=f'Channel {i+1}')
+        ax.plot(x, y, color=colors[i % len(colors)], linewidth=0.5)
+        ax.set_ylabel("Y")
+        ax.set_title(f"Channel {i+1}")
+        ax.legend()
+        ax.grid(True)
+        ax.axis('equal')
+
+    axs[-1].set_xlabel("Sample Index")
+    fig.suptitle("EEG Channels", fontsize=14)
+    plt.tight_layout(rect=[0, 0, 1, 0.96])
+    plt.show()
+
 
 
 def segmentChannelData(raw_data):
@@ -56,9 +66,9 @@ if __name__ == "__main__":
     path = r'C:\Users\gorga\CodeProjects\Arduino\Blink\blink_detection_algo\data\sub-P001_ses-S001_task-Default_run-001_eeg.xdf'
     raw_data = extract_eeg_data(path)
     channels = segmentChannelData(raw_data)
-    printOneChannel(channels[0],"red",1)
-    
-    plt.show()
-    
+    numChannels = len(channels[0])
+    # Plot up to 4 channels in separate subplots
+    printAllChannels(channels[:numChannels])
+
 
 

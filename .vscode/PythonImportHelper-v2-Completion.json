@@ -37,14 +37,6 @@
     },
     {
         "label": "XDFDataUI",
-        "importPath": "eegDataProcessor",
-        "description": "eegDataProcessor",
-        "isExtraImport": true,
-        "detail": "eegDataProcessor",
-        "documentation": {}
-    },
-    {
-        "label": "XDFDataUI",
         "kind": 2,
         "importPath": "eegDataProcessor",
         "description": "eegDataProcessor",
@@ -57,16 +49,16 @@
         "kind": 2,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "def extract_eeg_data(xdf_path):\n    streams, _ = pyxdf.load_xdf(xdf_path)\n    for stream in streams:\n        data = np.array(stream['time_series'])\n        return data\n    raise RuntimeError(\"Aucun flux EEG trouvé dans le fichier .xdf.\")\ndef printOneChannel(channel_data, color='blue', num=1):\n    # X-axis: sample indices (time)\n    x = np.arange(len(channel_data))\n    # Y-axis: channel values (position)",
+        "peekOfCode": "def extract_eeg_data(xdf_path):\n    streams, _ = pyxdf.load_xdf(xdf_path)\n    for stream in streams:\n        data = np.array(stream['time_series'])\n        return data\n    raise RuntimeError(\"Aucun flux EEG trouvé dans le fichier .xdf.\")\ndef printAllChannels(channels, colors=None):\n    num_channels = len(channels)\n    if num_channels == 0:\n        print(\"No channels to display.\")",
         "detail": "main",
         "documentation": {}
     },
     {
-        "label": "printOneChannel",
+        "label": "printAllChannels",
         "kind": 2,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "def printOneChannel(channel_data, color='blue', num=1):\n    # X-axis: sample indices (time)\n    x = np.arange(len(channel_data))\n    # Y-axis: channel values (position)\n    # I think channel_data[:, 0] might be the noise separated from the data, comming from the D_G electrode, therefore we can ignore it\n    y = channel_data[:, 1]  \n    plt.figure(figsize=(10, 6))\n    plt.scatter(x, y, color=color, label=f'Channel {num}', s=10)\n    # Draw lines between consecutive points in the same array \n    plt.plot(x, y, color=color, linewidth=0.5)",
+        "peekOfCode": "def printAllChannels(channels, colors=None):\n    num_channels = len(channels)\n    if num_channels == 0:\n        print(\"No channels to display.\")\n        return\n    if colors is None:\n        colors = ['red', 'blue', 'green', 'orange']\n    # Handle up to 4 subplots in 1 column\n    fig, axs = plt.subplots(num_channels, 1, figsize=(12, 3 * num_channels), sharex=True)\n    if num_channels == 1:",
         "detail": "main",
         "documentation": {}
     },
