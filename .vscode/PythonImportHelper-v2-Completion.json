@@ -58,6 +58,14 @@
         "documentation": {}
     },
     {
+        "label": "printBlinks",
+        "importPath": "printData",
+        "description": "printData",
+        "isExtraImport": true,
+        "detail": "printData",
+        "documentation": {}
+    },
+    {
         "label": "bufferSizesFromChannel",
         "importPath": "buffer",
         "description": "buffer",
@@ -109,11 +117,20 @@
         "documentation": {}
     },
     {
+        "label": "cleanDetect",
+        "kind": 2,
+        "importPath": "detect",
+        "description": "detect",
+        "peekOfCode": "def cleanDetect(isBlink):\n    previous = False\n    size = len(isBlink)\n    for i in range(size):\n        temp = previous\n        previous = isBlink[i]\n        if isBlink[i] and temp:\n            isBlink[i] = False\n    return isBlink\ndef detectWithThreshold(bChannel,threshold=150):",
+        "detail": "detect",
+        "documentation": {}
+    },
+    {
         "label": "detectWithThreshold",
         "kind": 2,
         "importPath": "detect",
         "description": "detect",
-        "peekOfCode": "def detectWithThreshold(bChannel,threshold=150):\n    ret = []\n    for buffer in bChannel:   \n        ret.append(any(buffer[:,1] >= threshold))    \n    return ret",
+        "peekOfCode": "def detectWithThreshold(bChannel,threshold=150):\n    ret = []\n    for buffer in bChannel:   \n        ret.append(any(buffer[:,1] >= threshold))    \n    return cleanDetect(ret)",
         "detail": "detect",
         "documentation": {}
     },
@@ -158,7 +175,7 @@
         "kind": 2,
         "importPath": "printData",
         "description": "printData",
-        "peekOfCode": "def printBuffer(channel_data, buffers):\n    printOneChannel(channel_data, \"blue\") \n    for buffer_point in buffers:\n        plt.axvline(x=buffer_point, color='green', linestyle='--', linewidth=1)\ndef printThreshold(channel_data, threshold,buffer):\n    printBuffer(channel_data,buffer)\n    plt.axhline(y=threshold, color=\"orange\", linestyle='--', linewidth=1)",
+        "peekOfCode": "def printBuffer(channel_data, buffers):\n    printOneChannel(channel_data, \"blue\") \n    for buffer_point in buffers:\n        plt.axvline(x=buffer_point, color='green', linestyle='--', linewidth=1)\ndef printThreshold(channel_data, threshold,buffer):\n    printBuffer(channel_data,buffer)\n    plt.axhline(y=threshold, color=\"orange\", linestyle='--', linewidth=1)\ndef printBlinks(channel_data, step, isBlink):\n    printOneChannel(channel_data, \"blue\") \n    current = 0",
         "detail": "printData",
         "documentation": {}
     },
@@ -167,7 +184,16 @@
         "kind": 2,
         "importPath": "printData",
         "description": "printData",
-        "peekOfCode": "def printThreshold(channel_data, threshold,buffer):\n    printBuffer(channel_data,buffer)\n    plt.axhline(y=threshold, color=\"orange\", linestyle='--', linewidth=1)",
+        "peekOfCode": "def printThreshold(channel_data, threshold,buffer):\n    printBuffer(channel_data,buffer)\n    plt.axhline(y=threshold, color=\"orange\", linestyle='--', linewidth=1)\ndef printBlinks(channel_data, step, isBlink):\n    printOneChannel(channel_data, \"blue\") \n    current = 0\n    for blink in isBlink:\n        if(blink):\n            plt.axvline(x=current, color='red', linestyle='--', linewidth=1)\n        current += step",
+        "detail": "printData",
+        "documentation": {}
+    },
+    {
+        "label": "printBlinks",
+        "kind": 2,
+        "importPath": "printData",
+        "description": "printData",
+        "peekOfCode": "def printBlinks(channel_data, step, isBlink):\n    printOneChannel(channel_data, \"blue\") \n    current = 0\n    for blink in isBlink:\n        if(blink):\n            plt.axvline(x=current, color='red', linestyle='--', linewidth=1)\n        current += step",
         "detail": "printData",
         "documentation": {}
     }

@@ -104,3 +104,14 @@ def printBuffer(channel_data, buffers):
 def printThreshold(channel_data, threshold,buffer):
     printBuffer(channel_data,buffer)
     plt.axhline(y=threshold, color="orange", linestyle='--', linewidth=1)
+
+
+def printBlinks(channel_data, step, isBlink):
+    printOneChannel(channel_data, "blue") 
+    current = 0
+    for blink in isBlink:
+        if(blink):
+            plt.axvline(x=current, color='red', linestyle='--', linewidth=1)
+        current += step
+
+    
