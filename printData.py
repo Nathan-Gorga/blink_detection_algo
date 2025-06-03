@@ -58,4 +58,49 @@ def printBlinks(channel_data :list[float], buffer_size :int, is_there_blink_in_b
 
         current += buffer_size
 
+def printTwoBlinks(channel1, channel2, buffer_size, is_there_blink_in_buffer1,is_there_blink_in_buffer2, name,color1="blue",color2="red"):
+    axis1 = plt.subplot(2,1,1)
+    plt.title(name)
+
+    plt.grid(True)
+
+    
+    axis2 = plt.subplot(2,1,2)
+
+    plt.grid(True)
+
+    plt.legend()
+
+    x :list[int] = np.arange( np.max( len(channel1))) 
+    
+    # signal data in y axis
+    y1 :list[float] = channel1
+    y2 :list[float] = channel2
+
+    
+    
+    axis1.plot(x, y1, color=color1, linewidth=0.8, label="Channel 1")
+    axis2.plot(x, y2, color=color2, linewidth=0.8, label="Channel 2")
+
+    axis1.scatter(x, y1, color=color1, s=5)
+    axis2.scatter(x, y2, color=color2, s=5)
+    
+    current :int = 0
+    
+    for blink1,blink2 in zip(is_there_blink_in_buffer1,is_there_blink_in_buffer2):
+
+        if(blink1):
+
+            axis1.axvline(x=current, color='green', linestyle='--', linewidth=1)
+
+        if(blink2):
+
+            axis2.axvline(x=current, color='green', linestyle='--', linewidth=1)
+
+        current += buffer_size
+    
+    
+    
+    return [axis1,axis2]
+    
     

@@ -90,7 +90,7 @@
         "documentation": {}
     },
     {
-        "label": "printBlinks",
+        "label": "printTwoBlinks",
         "importPath": "PrintData",
         "description": "PrintData",
         "isExtraImport": true,
@@ -156,7 +156,7 @@
         "kind": 2,
         "importPath": "Calibration",
         "description": "Calibration",
-        "peekOfCode": "def calibrate(path=r'data\\calibration\\calibration_data_nathan.xdf'):\n    calibration_channel :list[float] = getDataFromFile(path)[0] # TODO : make a better calibration data set, later will be done before blink detection\n    buffer_size :int = 10\n    # find maximal point\n    max_point :float = np.max(calibration_channel)\n    print(max_point)\n    # find baseline\n        # when measuring calibration, make sure a lot of the sample does not contain the signal, mostly noise\n        # we might just let 15 seconds pass and allow the subject to blink normally to calibrate on this data\n    baseline :float = np.mean(calibration_channel) ",
+        "peekOfCode": "def calibrate(path=r'data\\calibration\\calibration_data_nathan.xdf'):\n    calibration_channels :list[float] = getDataFromFile(path) # TODO : make a better calibration data set, later will be done before blink detection\n    calibration_channel1 = calibration_channels[0]\n    calibration_channel2 = calibration_channels[1]\n    # find baseline\n        # when measuring calibration, make sure a lot of the sample does not contain the signal, mostly noise\n        # we might just let 15 seconds pass and allow the subject to blink normally to calibrate on this data\n    baseline1 :float = np.mean(calibration_channel1) \n    baseline2 :float = np.mean(calibration_channel2) \n    # put both channels baseline at 0",
         "detail": "Calibration",
         "documentation": {}
     },
@@ -185,6 +185,15 @@
         "description": "Eval",
         "peekOfCode": "def deserializeJSONToObject(path):  \n    import json\n    file = open(path)\n    return json.loads(file)",
         "detail": "Eval",
+        "documentation": {}
+    },
+    {
+        "label": "detectBlinksFromChannels",
+        "kind": 2,
+        "importPath": "Main",
+        "description": "Main",
+        "peekOfCode": "def detectBlinksFromChannels(channel_data1 :list[float], channel_data2 :list[float], threshold1 :float,threshold2 :float, name):\n    buffer_size = 10\n    segmented_channel_by_buffer1 :list[list[float]] = segmentChannelByBuffer(channel_data1, buffer_size)\n    segmented_channel_by_buffer2 :list[list[float]] = segmentChannelByBuffer(channel_data2, buffer_size)\n    is_there_blink_in_buffer1 :list[bool] = detectWithThreshold(segmented_channel_by_buffer1, threshold1)\n    is_there_blink_in_buffer2 :list[bool] = detectWithThreshold(segmented_channel_by_buffer2, threshold2)\n    [axis1,axis2] = printTwoBlinks(channel_data1,channel_data2, buffer_size, is_there_blink_in_buffer1, is_there_blink_in_buffer2,name)\n    axis1.axhline(y=threshold1, color=\"orange\", linestyle='--', linewidth=1)\n    axis2.axhline(y=threshold2, color=\"orange\", linestyle='--', linewidth=1)\n    plt.show()",
+        "detail": "Main",
         "documentation": {}
     },
     {
@@ -219,7 +228,16 @@
         "kind": 2,
         "importPath": "PrintData",
         "description": "PrintData",
-        "peekOfCode": "def printBlinks(channel_data :list[float], buffer_size :int, is_there_blink_in_buffer :list[bool], color :str = \"blue\"):\n    printOneChannel(channel_data, color)\n    current :int = 0\n    for blink in is_there_blink_in_buffer:\n        if(blink):\n            plt.axvline(x=current, color='red', linestyle='--', linewidth=1)\n        current += buffer_size",
+        "peekOfCode": "def printBlinks(channel_data :list[float], buffer_size :int, is_there_blink_in_buffer :list[bool], color :str = \"blue\"):\n    printOneChannel(channel_data, color)\n    current :int = 0\n    for blink in is_there_blink_in_buffer:\n        if(blink):\n            plt.axvline(x=current, color='red', linestyle='--', linewidth=1)\n        current += buffer_size\ndef printTwoBlinks(channel1, channel2, buffer_size, is_there_blink_in_buffer1,is_there_blink_in_buffer2, name,color1=\"blue\",color2=\"red\"):\n    axis1 = plt.subplot(2,1,1)\n    plt.title(name)",
+        "detail": "PrintData",
+        "documentation": {}
+    },
+    {
+        "label": "printTwoBlinks",
+        "kind": 2,
+        "importPath": "PrintData",
+        "description": "PrintData",
+        "peekOfCode": "def printTwoBlinks(channel1, channel2, buffer_size, is_there_blink_in_buffer1,is_there_blink_in_buffer2, name,color1=\"blue\",color2=\"red\"):\n    axis1 = plt.subplot(2,1,1)\n    plt.title(name)\n    plt.grid(True)\n    axis2 = plt.subplot(2,1,2)\n    plt.grid(True)\n    plt.legend()\n    x :list[int] = np.arange( np.max( len(channel1))) \n    # signal data in y axis\n    y1 :list[float] = channel1",
         "detail": "PrintData",
         "documentation": {}
     },
