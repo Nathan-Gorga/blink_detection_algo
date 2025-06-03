@@ -1,4 +1,4 @@
-def bufferFullChannel(channel_data,bufferSize=150):
+def bufferSizesFromChannel(channel_data,bufferSize=150):
 
     channelSize = len(channel_data)
     

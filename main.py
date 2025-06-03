@@ -1,6 +1,7 @@
+import matplotlib.pyplot as plt
 
-from printData import extract_eeg_data,segmentChannelData,printAllChannels
-from buffer import bufferFullChannel
+from printData import extract_eeg_data, printBuffer, segmentChannelData
+from buffer import bufferSizesFromChannel
 
 
 if __name__ == "__main__":
@@ -8,8 +9,10 @@ if __name__ == "__main__":
     raw_data = extract_eeg_data(path)
     channels = segmentChannelData(raw_data)
     bufferSize = 150
-    buffer = bufferFullChannel(channels[0],bufferSize)
+    buffer = bufferSizesFromChannel(channels[0],bufferSize)
     print(buffer)
-
+    printBuffer(channels[0],buffer)
+    plt.show()
+    
 
 

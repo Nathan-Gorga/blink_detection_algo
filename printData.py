@@ -14,7 +14,7 @@ def extract_eeg_data(xdf_path):
 
     raise RuntimeError("Aucun flux EEG trouvé dans le fichier .xdf.")
 
-def printAllChannels(channels, colors=None):
+def printChannels(channels, colors=None):
     num_channels = len(channels)
     if num_channels == 0:
         print("No channels to display.")
@@ -44,7 +44,7 @@ def printAllChannels(channels, colors=None):
     axs[-1].set_xlabel("Sample Index")
     fig.suptitle("EEG Channels", fontsize=14)
     plt.tight_layout(rect=[0, 0, 1, 0.96])
-    plt.show()
+    
 
 
 
@@ -59,3 +59,41 @@ def segmentChannelData(raw_data):
         channels.append(channel_data)
 
     return channels
+import numpy as np
+import matplotlib.pyplot as plt
+
+def printOneChannel(channel_data, color='blue', num=1):
+    """
+    Plots a single EEG channel's 2D data (x and y values) over sample indices.
+
+    Parameters:
+    - channel_data: Nx2 array with x and y data for one channel.
+    - color: matplotlib color for the plot.
+    - num: channel number (for labeling).
+    """
+    # X-axis: time/sample index
+    time = np.arange(len(channel_data))
+    
+    # Y-axis: vertical signal value (e.g., position, voltage, etc.)
+    y = channel_data[:, 1]  # using only y-dimension for signal shape
+
+    plt.figure(figsize=(10, 4))
+    plt.plot(time, y, color=color, linewidth=0.8, label=f'Channel {num}')
+    plt.scatter(time, y, color=color, s=5)
+
+    plt.xlabel("Sample Index")
+    plt.ylabel("Signal Value")
+    plt.title(f"EEG Channel {num}")
+    plt.grid(True)
+    plt.legend()
+
+
+
+
+
+def printBuffer(channel_data, buffers):
+    printOneChannel(channel_data, "blue")  # Assuming you meant this function
+    
+    for buffer_point in buffers:
+        plt.axvline(x=buffer_point, color='green', linestyle='--', linewidth=1)
+    
