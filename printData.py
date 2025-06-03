@@ -4,15 +4,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-def extract_eeg_data(xdf_path):
-    streams, _ = pyxdf.load_xdf(xdf_path)
-    
-    
-    for stream in streams:
-        data = np.array(stream['time_series'])
-        return data
 
-    raise RuntimeError("Aucun flux EEG trouvé dans le fichier .xdf.")
 
 def printChannels(channels, colors=None):
     num_channels = len(channels)
@@ -63,7 +55,7 @@ def printOneChannel(channel_data, color='blue', num=1, name=None):
     time = np.arange(len(channel_data))
     
     # Y-axis: vertical signal value (e.g., position, voltage, etc.)
-    y = channel_data[:, 1]  # using only y-dimension for signal shape
+    y = channel_data  # using only y-dimension for signal shape
 
     plt.figure(figsize=(10, 4))
     

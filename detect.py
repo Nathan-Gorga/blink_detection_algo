@@ -21,5 +21,5 @@ def detectWithThreshold(bChannel,threshold=150):
     
     ret = []
     for buffer in bChannel:   
-        ret.append(any(buffer[:,1] >= threshold))    
+        ret.append(any(buffer[:] >= threshold))    
     return cleanDetect(ret)

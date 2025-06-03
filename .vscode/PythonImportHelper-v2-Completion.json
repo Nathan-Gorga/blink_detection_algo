@@ -9,115 +9,67 @@
         "documentation": {}
     },
     {
-        "label": "extract_eeg_data",
-        "importPath": "printData",
-        "description": "printData",
-        "isExtraImport": true,
-        "detail": "printData",
-        "documentation": {}
-    },
-    {
-        "label": "extract_eeg_data",
-        "importPath": "printData",
-        "description": "printData",
-        "isExtraImport": true,
-        "detail": "printData",
-        "documentation": {}
-    },
-    {
-        "label": "printBuffer",
-        "importPath": "printData",
-        "description": "printData",
-        "isExtraImport": true,
-        "detail": "printData",
-        "documentation": {}
-    },
-    {
-        "label": "printOneChannel",
-        "importPath": "printData",
-        "description": "printData",
-        "isExtraImport": true,
-        "detail": "printData",
-        "documentation": {}
-    },
-    {
-        "label": "printThreshold",
-        "importPath": "printData",
-        "description": "printData",
-        "isExtraImport": true,
-        "detail": "printData",
-        "documentation": {}
-    },
-    {
-        "label": "printBlinks",
-        "importPath": "printData",
-        "description": "printData",
-        "isExtraImport": true,
-        "detail": "printData",
-        "documentation": {}
-    },
-    {
-        "label": "segmentChannelData",
-        "importPath": "buffer",
-        "description": "buffer",
-        "isExtraImport": true,
-        "detail": "buffer",
-        "documentation": {}
-    },
-    {
-        "label": "bufferChannel",
-        "importPath": "buffer",
-        "description": "buffer",
-        "isExtraImport": true,
-        "detail": "buffer",
-        "documentation": {}
-    },
-    {
-        "label": "bufferSizesFromChannel",
-        "importPath": "buffer",
-        "description": "buffer",
-        "isExtraImport": true,
-        "detail": "buffer",
-        "documentation": {}
-    },
-    {
-        "label": "bufferSizesFromChannel",
-        "importPath": "buffer",
-        "description": "buffer",
-        "isExtraImport": true,
-        "detail": "buffer",
-        "documentation": {}
-    },
-    {
-        "label": "bufferChannel",
-        "importPath": "buffer",
-        "description": "buffer",
-        "isExtraImport": true,
-        "detail": "buffer",
-        "documentation": {}
-    },
-    {
-        "label": "segmentChannelData",
-        "importPath": "buffer",
-        "description": "buffer",
-        "isExtraImport": true,
-        "detail": "buffer",
-        "documentation": {}
-    },
-    {
-        "label": "cleanDetect",
-        "importPath": "detect",
-        "description": "detect",
-        "isExtraImport": true,
-        "detail": "detect",
-        "documentation": {}
-    },
-    {
         "label": "detectWithThreshold",
-        "importPath": "detect",
-        "description": "detect",
+        "importPath": "Detect",
+        "description": "Detect",
         "isExtraImport": true,
-        "detail": "detect",
+        "detail": "Detect",
+        "documentation": {}
+    },
+    {
+        "label": "*",
+        "importPath": "Detect",
+        "description": "Detect",
+        "isExtraImport": true,
+        "detail": "Detect",
+        "documentation": {}
+    },
+    {
+        "label": "bufferSizesFromChannel",
+        "importPath": "Buffer",
+        "description": "Buffer",
+        "isExtraImport": true,
+        "detail": "Buffer",
+        "documentation": {}
+    },
+    {
+        "label": "bufferChannel",
+        "importPath": "Buffer",
+        "description": "Buffer",
+        "isExtraImport": true,
+        "detail": "Buffer",
+        "documentation": {}
+    },
+    {
+        "label": "*",
+        "importPath": "Buffer",
+        "description": "Buffer",
+        "isExtraImport": true,
+        "detail": "Buffer",
+        "documentation": {}
+    },
+    {
+        "label": "*",
+        "importPath": "Buffer",
+        "description": "Buffer",
+        "isExtraImport": true,
+        "detail": "Buffer",
+        "documentation": {}
+    },
+    {
+        "label": "getDataFromFile",
+        "importPath": "Utils",
+        "description": "Utils",
+        "isExtraImport": true,
+        "detail": "Utils",
+        "documentation": {}
+    },
+    {
+        "label": "*",
+        "importPath": "Utils",
+        "description": "Utils",
+        "isExtraImport": true,
+        "detail": "Utils",
         "documentation": {}
     },
     {
@@ -130,19 +82,19 @@
         "documentation": {}
     },
     {
-        "label": "calibrate",
-        "importPath": "calibration",
-        "description": "calibration",
+        "label": "*",
+        "importPath": "PrintData",
+        "description": "PrintData",
         "isExtraImport": true,
-        "detail": "calibration",
+        "detail": "PrintData",
         "documentation": {}
     },
     {
-        "label": "findAverageBlinkHeight",
-        "importPath": "calibration",
-        "description": "calibration",
+        "label": "*",
+        "importPath": "Calibration",
+        "description": "Calibration",
         "isExtraImport": true,
-        "detail": "calibration",
+        "detail": "Calibration",
         "documentation": {}
     },
     {
@@ -157,127 +109,127 @@
     {
         "label": "bufferSizesFromChannel",
         "kind": 2,
-        "importPath": "buffer",
-        "description": "buffer",
+        "importPath": "Buffer",
+        "description": "Buffer",
         "peekOfCode": "def bufferSizesFromChannel(channel_data,bufferSize=150):\n    channelSize = len(channel_data)\n    bufferStartPoints = [0]\n    check = bufferSize\n    while check <= channelSize:\n        bufferStartPoints.append(check)\n        check += bufferSize\n    return bufferStartPoints\ndef bufferChannel(channel_data, bufferStarts):\n    bufferListSize = len(bufferStarts)",
-        "detail": "buffer",
+        "detail": "Buffer",
         "documentation": {}
     },
     {
         "label": "bufferChannel",
         "kind": 2,
-        "importPath": "buffer",
-        "description": "buffer",
+        "importPath": "Buffer",
+        "description": "Buffer",
         "peekOfCode": "def bufferChannel(channel_data, bufferStarts):\n    bufferListSize = len(bufferStarts)\n    bufferedChannel = []\n    for i in  range(bufferListSize - 1): #-1 to prevent overflow with i+1\n        start = bufferStarts[i]\n        stop = bufferStarts[i+1]\n        bufferedChannel.append(channel_data[start:stop])\n    return bufferedChannel\ndef segmentChannelData(raw_data):\n    numChannels = raw_data.shape[1] // 2",
-        "detail": "buffer",
+        "detail": "Buffer",
         "documentation": {}
     },
     {
         "label": "segmentChannelData",
         "kind": 2,
-        "importPath": "buffer",
-        "description": "buffer",
+        "importPath": "Buffer",
+        "description": "Buffer",
         "peekOfCode": "def segmentChannelData(raw_data):\n    numChannels = raw_data.shape[1] // 2\n    channels = []\n    for i in range(numChannels):\n        x = raw_data[:, 2 * i]\n        y = raw_data[:, 2 * i + 1]\n        channel_data = np.stack((x, y), axis=1) \n        channels.append(channel_data)\n    return channels",
-        "detail": "buffer",
+        "detail": "Buffer",
         "documentation": {}
     },
     {
         "label": "findAverageBlinkHeight",
         "kind": 2,
-        "importPath": "calibration",
-        "description": "calibration",
-        "peekOfCode": "def findAverageBlinkHeight(isBlink, bChannel):\n    total = 0\n    num = 0\n    for blink,channel in zip(isBlink,bChannel):\n        if blink:\n            total += max(channel)\n            num += 1\n    return total / num\n#this calibration is intentionnaly crude for now, we are going to impove it as flase positives and false negatives come in\ndef calibrate(path=r'C:\\Users\\gorga\\CodeProjects\\Arduino\\Blink\\blink_detection_algo\\data\\sample_blinks_nathan.xdf'):",
-        "detail": "calibration",
+        "importPath": "Calibration",
+        "description": "Calibration",
+        "peekOfCode": "def findAverageBlinkHeight(is_there_blink_in_buffer :list[bool], segmented_channel_by_buffer :list[list[float]]):\n    total = num = 0\n    for blink, channel in zip(is_there_blink_in_buffer, segmented_channel_by_buffer):\n        if blink:\n            total += np.max(channel)\n            num += 1\n    try:\n        return total / num \n    except ZeroDivisionError:\n        return 0",
+        "detail": "Calibration",
         "documentation": {}
     },
     {
         "label": "calibrate",
         "kind": 2,
-        "importPath": "calibration",
-        "description": "calibration",
-        "peekOfCode": "def calibrate(path=r'C:\\Users\\gorga\\CodeProjects\\Arduino\\Blink\\blink_detection_algo\\data\\sample_blinks_nathan.xdf'):\n    raw_data = extract_eeg_data(path)\n    raw_channels = segmentChannelData(raw_data)\n    channels = []\n    for raw_channel in raw_channels:\n        channels.append(raw_channel[:,1])\n    bufferSize = 10\n    buffer = bufferSizesFromChannel(channels[0],bufferSize)\n    bChannel = bufferChannel(channels[0],buffer)\n    # find maximal point",
-        "detail": "calibration",
-        "documentation": {}
-    },
-    {
-        "label": "messyDetectWithThreshold",
-        "kind": 2,
-        "importPath": "calibration",
-        "description": "calibration",
-        "peekOfCode": "def messyDetectWithThreshold(bChannel,threshold=150):\n    ret = []\n    for buffer in bChannel:   \n        ret.append(any(buffer[:] >= threshold))    \n    return cleanDetect(ret)",
-        "detail": "calibration",
+        "importPath": "Calibration",
+        "description": "Calibration",
+        "peekOfCode": "def calibrate(path=r'data\\calibration\\calibration_data.xdf'):\n    calibration_channel :list[float] = getDataFromFile(path)[0] # TODO : make a better calibration data set, later will be done before blink detection\n    buffer_size :int = 10\n    # find maximal point\n    max_point :float = np.max(calibration_channel)\n    # find baseline\n        # when measuring calibration, make sure a lot of the sample does not contain the signal, mostly noise\n        # we might just let 15 seconds pass and allow the subject to blink normally to calibrate on this data\n    baseline :float = np.mean(calibration_channel) \n    # use 65% for threshold",
+        "detail": "Calibration",
         "documentation": {}
     },
     {
         "label": "cleanDetect",
         "kind": 2,
-        "importPath": "detect",
-        "description": "detect",
+        "importPath": "Detect",
+        "description": "Detect",
         "peekOfCode": "def cleanDetect(isBlink):\n    previous = False\n    size = len(isBlink)\n    for i in range(size):\n        temp = previous\n        previous = isBlink[i]\n        if isBlink[i] and temp:\n            isBlink[i] = False\n    return isBlink\ndef detectWithThreshold(bChannel,threshold=150):",
-        "detail": "detect",
+        "detail": "Detect",
         "documentation": {}
     },
     {
         "label": "detectWithThreshold",
         "kind": 2,
-        "importPath": "detect",
-        "description": "detect",
-        "peekOfCode": "def detectWithThreshold(bChannel,threshold=150):\n    ret = []\n    for buffer in bChannel:   \n        ret.append(any(buffer[:,1] >= threshold))    \n    return cleanDetect(ret)",
-        "detail": "detect",
-        "documentation": {}
-    },
-    {
-        "label": "extract_eeg_data",
-        "kind": 2,
-        "importPath": "printData",
-        "description": "printData",
-        "peekOfCode": "def extract_eeg_data(xdf_path):\n    streams, _ = pyxdf.load_xdf(xdf_path)\n    for stream in streams:\n        data = np.array(stream['time_series'])\n        return data\n    raise RuntimeError(\"Aucun flux EEG trouvé dans le fichier .xdf.\")\ndef printChannels(channels, colors=None):\n    num_channels = len(channels)\n    if num_channels == 0:\n        print(\"No channels to display.\")",
-        "detail": "printData",
+        "importPath": "Detect",
+        "description": "Detect",
+        "peekOfCode": "def detectWithThreshold(bChannel,threshold=150):\n    ret = []\n    for buffer in bChannel:   \n        ret.append(any(buffer[:] >= threshold))    \n    return cleanDetect(ret)",
+        "detail": "Detect",
         "documentation": {}
     },
     {
         "label": "printChannels",
         "kind": 2,
-        "importPath": "printData",
-        "description": "printData",
+        "importPath": "PrintData",
+        "description": "PrintData",
         "peekOfCode": "def printChannels(channels, colors=None):\n    num_channels = len(channels)\n    if num_channels == 0:\n        print(\"No channels to display.\")\n        return\n    if colors is None:\n        colors = ['red', 'blue', 'green', 'orange']\n    # Handle up to 4 subplots in 1 column\n    fig, axs = plt.subplots(num_channels, 1, figsize=(12, 3 * num_channels), sharex=True)\n    if num_channels == 1:",
-        "detail": "printData",
+        "detail": "PrintData",
         "documentation": {}
     },
     {
         "label": "printOneChannel",
         "kind": 2,
-        "importPath": "printData",
-        "description": "printData",
+        "importPath": "PrintData",
+        "description": "PrintData",
         "peekOfCode": "def printOneChannel(channel_data, color='blue', num=1, name=None):\n    \"\"\"\n    Plots a single EEG channel's 2D data (x and y values) over sample indices.\n    Parameters:\n    - channel_data: Nx2 array with x and y data for one channel.\n    - color: matplotlib color for the plot.\n    - num: channel number (for labeling).\n    \"\"\"\n    # X-axis: time/sample index\n    time = np.arange(len(channel_data))",
-        "detail": "printData",
+        "detail": "PrintData",
         "documentation": {}
     },
     {
         "label": "printBuffer",
         "kind": 2,
-        "importPath": "printData",
-        "description": "printData",
+        "importPath": "PrintData",
+        "description": "PrintData",
         "peekOfCode": "def printBuffer(channel_data, buffers):\n    printOneChannel(channel_data, \"blue\") \n    for buffer_point in buffers:\n        plt.axvline(x=buffer_point, color='green', linestyle='--', linewidth=1)\ndef printThreshold(channel_data, threshold,buffer):\n    printBuffer(channel_data,buffer)\n    plt.axhline(y=threshold, color=\"orange\", linestyle='--', linewidth=1)\ndef printBlinks(channel_data, step, isBlink):\n    printOneChannel(channel_data, \"blue\") \n    current = 0",
-        "detail": "printData",
+        "detail": "PrintData",
         "documentation": {}
     },
     {
         "label": "printThreshold",
         "kind": 2,
-        "importPath": "printData",
-        "description": "printData",
+        "importPath": "PrintData",
+        "description": "PrintData",
         "peekOfCode": "def printThreshold(channel_data, threshold,buffer):\n    printBuffer(channel_data,buffer)\n    plt.axhline(y=threshold, color=\"orange\", linestyle='--', linewidth=1)\ndef printBlinks(channel_data, step, isBlink):\n    printOneChannel(channel_data, \"blue\") \n    current = 0\n    for blink in isBlink:\n        if(blink):\n            plt.axvline(x=current, color='red', linestyle='--', linewidth=1)\n        current += step",
-        "detail": "printData",
+        "detail": "PrintData",
         "documentation": {}
     },
     {
         "label": "printBlinks",
         "kind": 2,
-        "importPath": "printData",
-        "description": "printData",
+        "importPath": "PrintData",
+        "description": "PrintData",
         "peekOfCode": "def printBlinks(channel_data, step, isBlink):\n    printOneChannel(channel_data, \"blue\") \n    current = 0\n    for blink in isBlink:\n        if(blink):\n            plt.axvline(x=current, color='red', linestyle='--', linewidth=1)\n        current += step",
-        "detail": "printData",
+        "detail": "PrintData",
+        "documentation": {}
+    },
+    {
+        "label": "extract_eeg_data",
+        "kind": 2,
+        "importPath": "Utils",
+        "description": "Utils",
+        "peekOfCode": "def extract_eeg_data(xdf_path):\n    streams, _ = pyxdf.load_xdf(xdf_path)\n    for stream in streams:\n        data = np.array(stream['time_series'])\n        return data\n    raise RuntimeError(\"Aucun flux EEG trouvé dans le fichier .xdf.\")\ndef getDataFromFile(path):\n    raw_data = extract_eeg_data(path)\n    raw_channels = segmentChannelData(raw_data)\n    channels = []",
+        "detail": "Utils",
+        "documentation": {}
+    },
+    {
+        "label": "getDataFromFile",
+        "kind": 2,
+        "importPath": "Utils",
+        "description": "Utils",
+        "peekOfCode": "def getDataFromFile(path):\n    raw_data = extract_eeg_data(path)\n    raw_channels = segmentChannelData(raw_data)\n    channels = []\n    for raw_channel in raw_channels:\n        channels.append(raw_channel[:,1])\n    return channels",
+        "detail": "Utils",
         "documentation": {}
     }
 ]

@@ -1,67 +1,68 @@
+# python lib imports
 import numpy as np
-from printData import extract_eeg_data
-from buffer import segmentChannelData,bufferChannel,bufferSizesFromChannel
-from detect import cleanDetect
-import matplotlib.pyplot as plt
 
-def findAverageBlinkHeight(isBlink, bChannel):
-    total = 0
-    num = 0
+# my lib imports
+from Detect import detectWithThreshold
+from Buffer import bufferSizesFromChannel, bufferChannel
+from Utils import getDataFromFile
+
+def findAverageBlinkHeight(is_there_blink_in_buffer :list[bool], segmented_channel_by_buffer :list[list[float]]):
+
+    total = num = 0
     
-    for blink,channel in zip(isBlink,bChannel):
+    for blink, channel in zip(is_there_blink_in_buffer, segmented_channel_by_buffer):
+
         if blink:
-            total += max(channel)
-            num += 1
-    
-    return total / num
 
+            total += np.max(channel)
+
+            num += 1
+
+    try:
+        
+        return total / num 
+
+    except ZeroDivisionError:
+
+        return 0
 
 #this calibration is intentionnaly crude for now, we are going to impove it as flase positives and false negatives come in
-def calibrate(path=r'C:\Users\gorga\CodeProjects\Arduino\Blink\blink_detection_algo\data\sample_blinks_nathan.xdf'):
+def calibrate(path=r'data\calibration\calibration_data.xdf'):
 
-    raw_data = extract_eeg_data(path)
-    
-    raw_channels = segmentChannelData(raw_data)
-    
-    
-    channels = []
-    for raw_channel in raw_channels:
-        channels.append(raw_channel[:,1])
+    calibration_channel :list[float] = getDataFromFile(path)[0] # TODO : make a better calibration data set, later will be done before blink detection
         
-    
-    bufferSize = 10
-    buffer = bufferSizesFromChannel(channels[0],bufferSize)
-    
-    bChannel = bufferChannel(channels[0],buffer)
+    buffer_size :int = 10
     
     # find maximal point
     
-    maxPoint = max(channels[0])
+    max_point :float = np.max(calibration_channel)
     
     # find baseline
     
-    baseline = np.mean(channels[0]) # when measuring calibration, make sure a lot of the sample does not contain the signal, mostly noise
+        # when measuring calibration, make sure a lot of the sample does not contain the signal, mostly noise
+        # we might just let 15 seconds pass and allow the subject to blink normally to calibrate on this data
     
-    # use 60% for threshold
+    baseline :float = np.mean(calibration_channel) 
+
+    # use 65% for threshold
     
-    threshold = (maxPoint - baseline) * 0.6
+    percent_decrease :float = 0.65
+        
+    first_threshold :float = (max_point - baseline) * percent_decrease
        
-    # use this for detecing blinks
+    # use this for detecting blinks
+
+    buffer_sizes :list[int] = bufferSizesFromChannel(calibration_channel,buffer_size)
     
-    isBlink = messyDetectWithThreshold(bChannel,threshold)
+    segmented_channel_by_buffer :list[list[float]] = bufferChannel(calibration_channel,buffer_sizes)
+    
+    is_there_blink_in_buffer :list[bool] = detectWithThreshold(segmented_channel_by_buffer,first_threshold)
     
     #find the average blink height
     
-    avgBlinkHeight = findAverageBlinkHeight(isBlink,bChannel)
+    avg_blink_height :float = findAverageBlinkHeight(is_there_blink_in_buffer,segmented_channel_by_buffer)
     
+    if avg_blink_height == 0 : return baseline
     
-    
-    #return 75% of that average
-    return avgBlinkHeight * 0.75
+    return avg_blink_height * percent_decrease # threshold used for rest of algo
 
-def messyDetectWithThreshold(bChannel,threshold=150):
-    
-    ret = []
-    for buffer in bChannel:   
-        ret.append(any(buffer[:] >= threshold))    
-    return cleanDetect(ret)

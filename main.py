@@ -1,44 +1,35 @@
+# python lib imports
 import matplotlib.pyplot as plt
 import numpy as np
 
-from printData import extract_eeg_data, printBuffer, printOneChannel, printThreshold, printBlinks
-from buffer import bufferSizesFromChannel, bufferChannel, segmentChannelData
-from detect import detectWithThreshold
-from calibration import calibrate
+# my lib imports
+from PrintData import *
+from Buffer import *
+from Detect import *
+from Calibration import *
+from Utils import *
 
-from calibration import findAverageBlinkHeight
 
 if __name__ == "__main__":
+    # calibration 
+    threshold :float = calibrate() 
     
-    path = r'C:\Users\gorga\CodeProjects\Arduino\Blink\blink_detection_algo\data\sample_blinks_nathan.xdf'
+    # path of .xdf file
+    path :str = r'data\three_fast_blinks_nathan.xdf'
 
-    raw_data = extract_eeg_data(path)
-    channels = segmentChannelData(raw_data)
-    bufferSize = 10
-    buffer = bufferSizesFromChannel(channels[0],bufferSize)
-    
-    bChannel = bufferChannel(channels[0],buffer)
+    channels :list[list[float]] = getDataFromFile(path)
     
     
+    bufferSize :int = 10
     
-    baseline = np.mean(channels[0][:,1])
+    buffer_sizes_for_channel :list[int] = bufferSizesFromChannel(channels[0],bufferSize)
     
+    segmentedChannelByBuffer :list[list[float]] = bufferChannel(channels[0],buffer_sizes_for_channel)
     
-
-    threshold = calibrate(r'C:\Users\gorga\CodeProjects\Arduino\Blink\blink_detection_algo\data\sample_blinks_nathan.xdf')
-
-
-
-    isBlink = detectWithThreshold(bChannel,threshold)
-
- 
-
-    # printThreshold(channels[0],threshold,buffer)
+    isThereBlinkInBuffer :list[bool] = detectWithThreshold(segmentedChannelByBuffer,threshold)
     
+    printBlinks(channels[0],bufferSize,isThereBlinkInBuffer)
     
-    printBlinks(channels[0],bufferSize,isBlink)
-    
-    plt.axhline(y=baseline, color="grey", linestyle='--', linewidth=1)
     plt.axhline(y=threshold, color="orange", linestyle='--', linewidth=1)
     
     plt.show()
