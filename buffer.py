@@ -1,3 +1,5 @@
+import numpy as np
+
 def bufferSizesFromChannel(channel_data,bufferSize=150):
 
     channelSize = len(channel_data)
@@ -21,3 +23,16 @@ def bufferChannel(channel_data, bufferStarts):
         bufferedChannel.append(channel_data[start:stop])
         
     return bufferedChannel
+
+
+def segmentChannelData(raw_data):
+    numChannels = raw_data.shape[1] // 2
+    channels = []
+
+    for i in range(numChannels):
+        x = raw_data[:, 2 * i]
+        y = raw_data[:, 2 * i + 1]
+        channel_data = np.stack((x, y), axis=1) 
+        channels.append(channel_data)
+
+    return channels

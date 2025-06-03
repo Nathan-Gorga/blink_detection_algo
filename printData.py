@@ -48,19 +48,7 @@ def printChannels(channels, colors=None):
 
 
 
-def segmentChannelData(raw_data):
-    numChannels = raw_data.shape[1] // 2
-    channels = []
 
-    for i in range(numChannels):
-        x = raw_data[:, 2 * i]
-        y = raw_data[:, 2 * i + 1]
-        channel_data = np.stack((x, y), axis=1) 
-        channels.append(channel_data)
-
-    return channels
-import numpy as np
-import matplotlib.pyplot as plt
 
 def printOneChannel(channel_data, color='blue', num=1, name=None):
     """

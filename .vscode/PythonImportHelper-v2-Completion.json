@@ -9,12 +9,11 @@
         "documentation": {}
     },
     {
-        "label": "matplotlib.pyplot",
-        "kind": 6,
+        "label": "extract_eeg_data",
+        "importPath": "printData",
+        "description": "printData",
         "isExtraImport": true,
-        "importPath": "matplotlib.pyplot",
-        "description": "matplotlib.pyplot",
-        "detail": "matplotlib.pyplot",
+        "detail": "printData",
         "documentation": {}
     },
     {
@@ -42,14 +41,6 @@
         "documentation": {}
     },
     {
-        "label": "segmentChannelData",
-        "importPath": "printData",
-        "description": "printData",
-        "isExtraImport": true,
-        "detail": "printData",
-        "documentation": {}
-    },
-    {
         "label": "printThreshold",
         "importPath": "printData",
         "description": "printData",
@@ -63,6 +54,30 @@
         "description": "printData",
         "isExtraImport": true,
         "detail": "printData",
+        "documentation": {}
+    },
+    {
+        "label": "segmentChannelData",
+        "importPath": "buffer",
+        "description": "buffer",
+        "isExtraImport": true,
+        "detail": "buffer",
+        "documentation": {}
+    },
+    {
+        "label": "bufferChannel",
+        "importPath": "buffer",
+        "description": "buffer",
+        "isExtraImport": true,
+        "detail": "buffer",
+        "documentation": {}
+    },
+    {
+        "label": "bufferSizesFromChannel",
+        "importPath": "buffer",
+        "description": "buffer",
+        "isExtraImport": true,
+        "detail": "buffer",
         "documentation": {}
     },
     {
@@ -82,11 +97,52 @@
         "documentation": {}
     },
     {
+        "label": "segmentChannelData",
+        "importPath": "buffer",
+        "description": "buffer",
+        "isExtraImport": true,
+        "detail": "buffer",
+        "documentation": {}
+    },
+    {
+        "label": "cleanDetect",
+        "importPath": "detect",
+        "description": "detect",
+        "isExtraImport": true,
+        "detail": "detect",
+        "documentation": {}
+    },
+    {
         "label": "detectWithThreshold",
         "importPath": "detect",
         "description": "detect",
         "isExtraImport": true,
         "detail": "detect",
+        "documentation": {}
+    },
+    {
+        "label": "matplotlib.pyplot",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "matplotlib.pyplot",
+        "description": "matplotlib.pyplot",
+        "detail": "matplotlib.pyplot",
+        "documentation": {}
+    },
+    {
+        "label": "calibrate",
+        "importPath": "calibration",
+        "description": "calibration",
+        "isExtraImport": true,
+        "detail": "calibration",
+        "documentation": {}
+    },
+    {
+        "label": "findAverageBlinkHeight",
+        "importPath": "calibration",
+        "description": "calibration",
+        "isExtraImport": true,
+        "detail": "calibration",
         "documentation": {}
     },
     {
@@ -112,8 +168,44 @@
         "kind": 2,
         "importPath": "buffer",
         "description": "buffer",
-        "peekOfCode": "def bufferChannel(channel_data, bufferStarts):\n    bufferListSize = len(bufferStarts)\n    bufferedChannel = []\n    for i in  range(bufferListSize - 1): #-1 to prevent overflow with i+1\n        start = bufferStarts[i]\n        stop = bufferStarts[i+1]\n        bufferedChannel.append(channel_data[start:stop])\n    return bufferedChannel",
+        "peekOfCode": "def bufferChannel(channel_data, bufferStarts):\n    bufferListSize = len(bufferStarts)\n    bufferedChannel = []\n    for i in  range(bufferListSize - 1): #-1 to prevent overflow with i+1\n        start = bufferStarts[i]\n        stop = bufferStarts[i+1]\n        bufferedChannel.append(channel_data[start:stop])\n    return bufferedChannel\ndef segmentChannelData(raw_data):\n    numChannels = raw_data.shape[1] // 2",
         "detail": "buffer",
+        "documentation": {}
+    },
+    {
+        "label": "segmentChannelData",
+        "kind": 2,
+        "importPath": "buffer",
+        "description": "buffer",
+        "peekOfCode": "def segmentChannelData(raw_data):\n    numChannels = raw_data.shape[1] // 2\n    channels = []\n    for i in range(numChannels):\n        x = raw_data[:, 2 * i]\n        y = raw_data[:, 2 * i + 1]\n        channel_data = np.stack((x, y), axis=1) \n        channels.append(channel_data)\n    return channels",
+        "detail": "buffer",
+        "documentation": {}
+    },
+    {
+        "label": "findAverageBlinkHeight",
+        "kind": 2,
+        "importPath": "calibration",
+        "description": "calibration",
+        "peekOfCode": "def findAverageBlinkHeight(isBlink, bChannel):\n    total = 0\n    num = 0\n    for blink,channel in zip(isBlink,bChannel):\n        if blink:\n            total += max(channel)\n            num += 1\n    return total / num\n#this calibration is intentionnaly crude for now, we are going to impove it as flase positives and false negatives come in\ndef calibrate(path=r'C:\\Users\\gorga\\CodeProjects\\Arduino\\Blink\\blink_detection_algo\\data\\sample_blinks_nathan.xdf'):",
+        "detail": "calibration",
+        "documentation": {}
+    },
+    {
+        "label": "calibrate",
+        "kind": 2,
+        "importPath": "calibration",
+        "description": "calibration",
+        "peekOfCode": "def calibrate(path=r'C:\\Users\\gorga\\CodeProjects\\Arduino\\Blink\\blink_detection_algo\\data\\sample_blinks_nathan.xdf'):\n    raw_data = extract_eeg_data(path)\n    raw_channels = segmentChannelData(raw_data)\n    channels = []\n    for raw_channel in raw_channels:\n        channels.append(raw_channel[:,1])\n    bufferSize = 10\n    buffer = bufferSizesFromChannel(channels[0],bufferSize)\n    bChannel = bufferChannel(channels[0],buffer)\n    # find maximal point",
+        "detail": "calibration",
+        "documentation": {}
+    },
+    {
+        "label": "messyDetectWithThreshold",
+        "kind": 2,
+        "importPath": "calibration",
+        "description": "calibration",
+        "peekOfCode": "def messyDetectWithThreshold(bChannel,threshold=150):\n    ret = []\n    for buffer in bChannel:   \n        ret.append(any(buffer[:] >= threshold))    \n    return cleanDetect(ret)",
+        "detail": "calibration",
         "documentation": {}
     },
     {
@@ -149,15 +241,6 @@
         "importPath": "printData",
         "description": "printData",
         "peekOfCode": "def printChannels(channels, colors=None):\n    num_channels = len(channels)\n    if num_channels == 0:\n        print(\"No channels to display.\")\n        return\n    if colors is None:\n        colors = ['red', 'blue', 'green', 'orange']\n    # Handle up to 4 subplots in 1 column\n    fig, axs = plt.subplots(num_channels, 1, figsize=(12, 3 * num_channels), sharex=True)\n    if num_channels == 1:",
-        "detail": "printData",
-        "documentation": {}
-    },
-    {
-        "label": "segmentChannelData",
-        "kind": 2,
-        "importPath": "printData",
-        "description": "printData",
-        "peekOfCode": "def segmentChannelData(raw_data):\n    numChannels = raw_data.shape[1] // 2\n    channels = []\n    for i in range(numChannels):\n        x = raw_data[:, 2 * i]\n        y = raw_data[:, 2 * i + 1]\n        channel_data = np.stack((x, y), axis=1) \n        channels.append(channel_data)\n    return channels\nimport numpy as np",
         "detail": "printData",
         "documentation": {}
     },
