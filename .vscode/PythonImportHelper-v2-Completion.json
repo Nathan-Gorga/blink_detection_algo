@@ -111,7 +111,7 @@
         "kind": 2,
         "importPath": "Buffer",
         "description": "Buffer",
-        "peekOfCode": "def bufferSizesFromChannel(channel_data,bufferSize=150):\n    channelSize = len(channel_data)\n    bufferStartPoints = [0]\n    check = bufferSize\n    while check <= channelSize:\n        bufferStartPoints.append(check)\n        check += bufferSize\n    return bufferStartPoints\ndef bufferChannel(channel_data, bufferStarts):\n    bufferListSize = len(bufferStarts)",
+        "peekOfCode": "def bufferSizesFromChannel(channel_data :list[float], bufferSize :int = 150):\n    channel_size : int = len(channel_data)\n    buffer_start_points :list[int] = [0]\n    check :int = bufferSize\n    while check <= channel_size:\n        buffer_start_points.append(check)\n        check += bufferSize\n    return buffer_start_points\ndef bufferChannel(channel_data :list[float], buffer_sizes_for_channel :list[int]):\n    buffer_list_size = len(buffer_sizes_for_channel)",
         "detail": "Buffer",
         "documentation": {}
     },
@@ -120,7 +120,7 @@
         "kind": 2,
         "importPath": "Buffer",
         "description": "Buffer",
-        "peekOfCode": "def bufferChannel(channel_data, bufferStarts):\n    bufferListSize = len(bufferStarts)\n    bufferedChannel = []\n    for i in  range(bufferListSize - 1): #-1 to prevent overflow with i+1\n        start = bufferStarts[i]\n        stop = bufferStarts[i+1]\n        bufferedChannel.append(channel_data[start:stop])\n    return bufferedChannel\ndef separateChannelData(raw_data):\n    numChannels = raw_data.shape[1] // 2",
+        "peekOfCode": "def bufferChannel(channel_data :list[float], buffer_sizes_for_channel :list[int]):\n    buffer_list_size = len(buffer_sizes_for_channel)\n    buffered_channel :list[float] = []\n    for i in  range(buffer_list_size - 1): #-1 to prevent overflow with i+1\n        start = buffer_sizes_for_channel[i]\n        stop = buffer_sizes_for_channel[i+1]\n        buffered_channel.append(channel_data[start:stop])\n    return buffered_channel\ndef separateChannelData(raw_data :list[list[float]]):\n    num_channels :int = raw_data.shape[1] // 2",
         "detail": "Buffer",
         "documentation": {}
     },
@@ -129,7 +129,7 @@
         "kind": 2,
         "importPath": "Buffer",
         "description": "Buffer",
-        "peekOfCode": "def separateChannelData(raw_data):\n    numChannels = raw_data.shape[1] // 2\n    channels = []\n    for i in range(numChannels):\n        x = raw_data[:, 2 * i]\n        y = raw_data[:, 2 * i + 1]\n        channel_data = np.stack((x, y), axis=1) \n        channels.append(channel_data)\n    return channels",
+        "peekOfCode": "def separateChannelData(raw_data :list[list[float]]):\n    num_channels :int = raw_data.shape[1] // 2\n    channels :list[list[float]] = []\n    for i in range(num_channels):\n        x = raw_data[:, 2 * i] \n        y = raw_data[:, 2 * i + 1]\n        channel_data = np.stack((x, y), axis=1) \n        channels.append(channel_data)\n    return channels",
         "detail": "Buffer",
         "documentation": {}
     },

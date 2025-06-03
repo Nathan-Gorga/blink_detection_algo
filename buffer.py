@@ -1,39 +1,53 @@
-
+# import python libs
 import numpy as np
 
-def bufferSizesFromChannel(channel_data,bufferSize=150):
+def bufferSizesFromChannel(channel_data :list[float], bufferSize :int = 150):
 
-    channelSize = len(channel_data)
+    channel_size : int = len(channel_data)
     
-    bufferStartPoints = [0]
-    check = bufferSize
-    while check <= channelSize:
-        bufferStartPoints.append(check)
+    buffer_start_points :list[int] = [0]
+
+    check :int = bufferSize
+
+    while check <= channel_size:
+
+        buffer_start_points.append(check)
+
         check += bufferSize
         
-    return bufferStartPoints
+    return buffer_start_points
     
     
-def bufferChannel(channel_data, bufferStarts):
+def bufferChannel(channel_data :list[float], buffer_sizes_for_channel :list[int]):
     
-    bufferListSize = len(bufferStarts)
-    bufferedChannel = []
-    for i in  range(bufferListSize - 1): #-1 to prevent overflow with i+1
-        start = bufferStarts[i]
-        stop = bufferStarts[i+1]
-        bufferedChannel.append(channel_data[start:stop])
+    buffer_list_size = len(buffer_sizes_for_channel)
+
+    buffered_channel :list[float] = []
+
+    for i in  range(buffer_list_size - 1): #-1 to prevent overflow with i+1
+
+        start = buffer_sizes_for_channel[i]
+
+        stop = buffer_sizes_for_channel[i+1]
+
+        buffered_channel.append(channel_data[start:stop])
         
-    return bufferedChannel
+    return buffered_channel
 
 
-def separateChannelData(raw_data):
-    numChannels = raw_data.shape[1] // 2
-    channels = []
+def separateChannelData(raw_data :list[list[float]]):
 
-    for i in range(numChannels):
-        x = raw_data[:, 2 * i]
+    num_channels :int = raw_data.shape[1] // 2
+    channels :list[list[float]] = []
+
+    for i in range(num_channels):
+
+        x = raw_data[:, 2 * i] 
+
         y = raw_data[:, 2 * i + 1]
+
         channel_data = np.stack((x, y), axis=1) 
+
         channels.append(channel_data)
 
     return channels
