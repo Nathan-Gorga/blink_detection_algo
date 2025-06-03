@@ -14,7 +14,7 @@ import matplotlib.pyplot as plt
 
 ###turning this into a function to call it in the main code
 
-def XDFDataUI(path=r'C:\Users\n.gorga\code\processRawData\data\sub-P001_ses-S001_task-Default_run-001_eeg.xdf'):
+def XDFDataUI(path=r'C:\Users\gorga\CodeProjects\Arduino\Blink\blink_detection_algo\data\sub-P001_ses-S001_task-Default_run-001_eeg.xdf'):
     # Load XDF file
     xdf_path = path
     streams, file_header = pyxdf.load_xdf(xdf_path)

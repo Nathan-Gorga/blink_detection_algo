@@ -1,0 +1,82 @@
+[
+    {
+        "label": "numpy",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "numpy",
+        "description": "numpy",
+        "detail": "numpy",
+        "documentation": {}
+    },
+    {
+        "label": "pyxdf",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "pyxdf",
+        "description": "pyxdf",
+        "detail": "pyxdf",
+        "documentation": {}
+    },
+    {
+        "label": "mne",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "mne",
+        "description": "mne",
+        "detail": "mne",
+        "documentation": {}
+    },
+    {
+        "label": "matplotlib.pyplot",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "matplotlib.pyplot",
+        "description": "matplotlib.pyplot",
+        "detail": "matplotlib.pyplot",
+        "documentation": {}
+    },
+    {
+        "label": "XDFDataUI",
+        "importPath": "eegDataProcessor",
+        "description": "eegDataProcessor",
+        "isExtraImport": true,
+        "detail": "eegDataProcessor",
+        "documentation": {}
+    },
+    {
+        "label": "XDFDataUI",
+        "kind": 2,
+        "importPath": "eegDataProcessor",
+        "description": "eegDataProcessor",
+        "peekOfCode": "def XDFDataUI(path=r'C:\\Users\\gorga\\CodeProjects\\Arduino\\Blink\\blink_detection_algo\\data\\sub-P001_ses-S001_task-Default_run-001_eeg.xdf'):\n    # Load XDF file\n    xdf_path = path\n    streams, file_header = pyxdf.load_xdf(xdf_path)\n    # Find EEG stream (by type or name)\n    eeg_stream = None\n    for stream in streams:\n        #print(stream)\n        #print(stream['info']['name'][0])\n        if stream['info']['type'][0].lower() == 'eeg' or 'eeg' in stream['info']['name'][0].lower():",
+        "detail": "eegDataProcessor",
+        "documentation": {}
+    },
+    {
+        "label": "extract_eeg_data",
+        "kind": 2,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "def extract_eeg_data(xdf_path):\n    streams, _ = pyxdf.load_xdf(xdf_path)\n    for stream in streams:\n        data = np.array(stream['time_series'])\n        return data\n    raise RuntimeError(\"Aucun flux EEG trouvé dans le fichier .xdf.\")\ndef printOneChannel(channel_data, color='blue', num=1):\n    # X-axis: sample indices (time)\n    x = np.arange(len(channel_data))\n    # Y-axis: channel values (position)",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "printOneChannel",
+        "kind": 2,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "def printOneChannel(channel_data, color='blue', num=1):\n    # X-axis: sample indices (time)\n    x = np.arange(len(channel_data))\n    # Y-axis: channel values (position)\n    # I think channel_data[:, 0] might be the noise separated from the data, comming from the D_G electrode, therefore we can ignore it\n    y = channel_data[:, 1]  \n    plt.figure(figsize=(10, 6))\n    plt.scatter(x, y, color=color, label=f'Channel {num}', s=10)\n    # Draw lines between consecutive points in the same array \n    plt.plot(x, y, color=color, linewidth=0.5)",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "segmentChannelData",
+        "kind": 2,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "def segmentChannelData(raw_data):\n    numChannels = raw_data.shape[1] // 2\n    channels = []\n    for i in range(numChannels):\n        x = raw_data[:, 2 * i]\n        y = raw_data[:, 2 * i + 1]\n        channel_data = np.stack((x, y), axis=1) \n        channels.append(channel_data)\n    return channels\nif __name__ == \"__main__\":",
+        "detail": "main",
+        "documentation": {}
+    }
+]
