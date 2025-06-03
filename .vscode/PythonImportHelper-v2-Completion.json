@@ -24,6 +24,14 @@
         "documentation": {}
     },
     {
+        "label": "bufferFullChannel",
+        "importPath": "buffer",
+        "description": "buffer",
+        "isExtraImport": true,
+        "detail": "buffer",
+        "documentation": {}
+    },
+    {
         "label": "pyxdf",
         "kind": 6,
         "isExtraImport": true,
@@ -48,6 +56,15 @@
         "importPath": "matplotlib.pyplot",
         "description": "matplotlib.pyplot",
         "detail": "matplotlib.pyplot",
+        "documentation": {}
+    },
+    {
+        "label": "bufferFullChannel",
+        "kind": 2,
+        "importPath": "buffer",
+        "description": "buffer",
+        "peekOfCode": "def bufferFullChannel(channel_data,bufferSize=150):\n    channelSize = len(channel_data)\n    bufferStartPoints = [0]\n    check = bufferSize\n    while check <= channelSize:\n        bufferStartPoints.append(check)\n        check += bufferSize\n    return bufferStartPoints",
+        "detail": "buffer",
         "documentation": {}
     },
     {
