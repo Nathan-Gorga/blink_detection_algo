@@ -1,4 +1,4 @@
-### going to try several methods of detection and see which one is fastest, most reliable and capable of working on the fly
+
 
 import numpy as np
 
