@@ -1,11 +1,26 @@
 [
     {
-        "label": "numpy",
-        "kind": 6,
+        "label": "extract_eeg_data",
+        "importPath": "printData",
+        "description": "printData",
         "isExtraImport": true,
-        "importPath": "numpy",
-        "description": "numpy",
-        "detail": "numpy",
+        "detail": "printData",
+        "documentation": {}
+    },
+    {
+        "label": "segmentChannelData",
+        "importPath": "printData",
+        "description": "printData",
+        "isExtraImport": true,
+        "detail": "printData",
+        "documentation": {}
+    },
+    {
+        "label": "printAllChannels",
+        "importPath": "printData",
+        "description": "printData",
+        "isExtraImport": true,
+        "detail": "printData",
         "documentation": {}
     },
     {
@@ -18,12 +33,12 @@
         "documentation": {}
     },
     {
-        "label": "mne",
+        "label": "numpy",
         "kind": 6,
         "isExtraImport": true,
-        "importPath": "mne",
-        "description": "mne",
-        "detail": "mne",
+        "importPath": "numpy",
+        "description": "numpy",
+        "detail": "numpy",
         "documentation": {}
     },
     {
@@ -36,39 +51,30 @@
         "documentation": {}
     },
     {
-        "label": "XDFDataUI",
-        "kind": 2,
-        "importPath": "eegDataProcessor",
-        "description": "eegDataProcessor",
-        "peekOfCode": "def XDFDataUI(path=r'C:\\Users\\gorga\\CodeProjects\\Arduino\\Blink\\blink_detection_algo\\data\\sub-P001_ses-S001_task-Default_run-001_eeg.xdf'):\n    # Load XDF file\n    xdf_path = path\n    streams, file_header = pyxdf.load_xdf(xdf_path)\n    # Find EEG stream (by type or name)\n    eeg_stream = None\n    for stream in streams:\n        #print(stream)\n        #print(stream['info']['name'][0])\n        if stream['info']['type'][0].lower() == 'eeg' or 'eeg' in stream['info']['name'][0].lower():",
-        "detail": "eegDataProcessor",
-        "documentation": {}
-    },
-    {
         "label": "extract_eeg_data",
         "kind": 2,
-        "importPath": "main",
-        "description": "main",
+        "importPath": "printData",
+        "description": "printData",
         "peekOfCode": "def extract_eeg_data(xdf_path):\n    streams, _ = pyxdf.load_xdf(xdf_path)\n    for stream in streams:\n        data = np.array(stream['time_series'])\n        return data\n    raise RuntimeError(\"Aucun flux EEG trouvé dans le fichier .xdf.\")\ndef printAllChannels(channels, colors=None):\n    num_channels = len(channels)\n    if num_channels == 0:\n        print(\"No channels to display.\")",
-        "detail": "main",
+        "detail": "printData",
         "documentation": {}
     },
     {
         "label": "printAllChannels",
         "kind": 2,
-        "importPath": "main",
-        "description": "main",
+        "importPath": "printData",
+        "description": "printData",
         "peekOfCode": "def printAllChannels(channels, colors=None):\n    num_channels = len(channels)\n    if num_channels == 0:\n        print(\"No channels to display.\")\n        return\n    if colors is None:\n        colors = ['red', 'blue', 'green', 'orange']\n    # Handle up to 4 subplots in 1 column\n    fig, axs = plt.subplots(num_channels, 1, figsize=(12, 3 * num_channels), sharex=True)\n    if num_channels == 1:",
-        "detail": "main",
+        "detail": "printData",
         "documentation": {}
     },
     {
         "label": "segmentChannelData",
         "kind": 2,
-        "importPath": "main",
-        "description": "main",
-        "peekOfCode": "def segmentChannelData(raw_data):\n    numChannels = raw_data.shape[1] // 2\n    channels = []\n    for i in range(numChannels):\n        x = raw_data[:, 2 * i]\n        y = raw_data[:, 2 * i + 1]\n        channel_data = np.stack((x, y), axis=1) \n        channels.append(channel_data)\n    return channels\nif __name__ == \"__main__\":",
-        "detail": "main",
+        "importPath": "printData",
+        "description": "printData",
+        "peekOfCode": "def segmentChannelData(raw_data):\n    numChannels = raw_data.shape[1] // 2\n    channels = []\n    for i in range(numChannels):\n        x = raw_data[:, 2 * i]\n        y = raw_data[:, 2 * i + 1]\n        channel_data = np.stack((x, y), axis=1) \n        channels.append(channel_data)\n    return channels",
+        "detail": "printData",
         "documentation": {}
     }
 ]
