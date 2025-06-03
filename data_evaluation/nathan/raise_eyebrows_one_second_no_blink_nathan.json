@@ -1,0 +1,15 @@
+{
+  "file_location": "data\\raise_eyebrows_one_second_no_blink_nathan.xdf",
+
+  "data_evaluation": {
+    "calibration_file_location": "data\\calibration\\calibration_data_nathan.xdf",
+
+    "label": {
+      "expected_detection": "negative",
+
+      "expected_number": 0
+    },
+
+    "outcome": "FALSE_POSITIVE"
+  }
+}

@@ -38,6 +38,7 @@ def calibrate(path=r'data\calibration\calibration_data_nathan.xdf'):
     # find maximal point
     
     max_point :float = np.max(calibration_channel)
+    print(max_point)
     
     # find baseline
     
@@ -54,8 +55,6 @@ def calibrate(path=r'data\calibration\calibration_data_nathan.xdf'):
        
     # use this for detecting blinks
 
-    
-    
     segmented_channel_by_buffer :list[list[float]] = segmentChannelByBuffer(calibration_channel, buffer_size)
     
     is_there_blink_in_buffer :list[bool] = detectWithThreshold(segmented_channel_by_buffer,first_threshold)

@@ -1,0 +1,19 @@
+{
+    "file_location" : "data\\three_fast_blinks_nathan.xdf",
+
+    "data_evaluation" : {
+
+        "calibration_file_location" : "data\\calibration\\calibration_data_nathan.xdf",
+
+        "label" : {
+
+            "expected_detection" : "positive",
+
+            "expected_number" : 3
+
+        },
+
+        "outcome" : "TRUE_POSITIVE"
+
+    }
+}

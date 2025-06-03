@@ -1,0 +1,15 @@
+{
+  "file_location": "data\\hard_blink_nathan.xdf",
+
+  "data_evaluation": {
+    "calibration_file_location": "data\\calibration\\calibration_data_nathan.xdf",
+
+    "label": {
+      "expected_detection": "positive",
+
+      "expected_number": 1
+    },
+
+    "outcome": "TRUE_POSITIVE"
+  }
+}
