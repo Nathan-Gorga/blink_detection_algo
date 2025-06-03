@@ -1,5 +1,14 @@
 [
     {
+        "label": "numpy",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "numpy",
+        "description": "numpy",
+        "detail": "numpy",
+        "documentation": {}
+    },
+    {
         "label": "matplotlib.pyplot",
         "kind": 6,
         "isExtraImport": true,
@@ -41,6 +50,14 @@
         "documentation": {}
     },
     {
+        "label": "printThreshold",
+        "importPath": "printData",
+        "description": "printData",
+        "isExtraImport": true,
+        "detail": "printData",
+        "documentation": {}
+    },
+    {
         "label": "bufferSizesFromChannel",
         "importPath": "buffer",
         "description": "buffer",
@@ -57,21 +74,20 @@
         "documentation": {}
     },
     {
+        "label": "detectWithThreshold",
+        "importPath": "detect",
+        "description": "detect",
+        "isExtraImport": true,
+        "detail": "detect",
+        "documentation": {}
+    },
+    {
         "label": "pyxdf",
         "kind": 6,
         "isExtraImport": true,
         "importPath": "pyxdf",
         "description": "pyxdf",
         "detail": "pyxdf",
-        "documentation": {}
-    },
-    {
-        "label": "numpy",
-        "kind": 6,
-        "isExtraImport": true,
-        "importPath": "numpy",
-        "description": "numpy",
-        "detail": "numpy",
         "documentation": {}
     },
     {
@@ -90,6 +106,15 @@
         "description": "buffer",
         "peekOfCode": "def bufferChannel(channel_data, bufferStarts):\n    bufferListSize = len(bufferStarts)\n    bufferedChannel = []\n    for i in  range(bufferListSize - 1): #-1 to prevent overflow with i+1\n        start = bufferStarts[i]\n        stop = bufferStarts[i+1]\n        bufferedChannel.append(channel_data[start:stop])\n    return bufferedChannel",
         "detail": "buffer",
+        "documentation": {}
+    },
+    {
+        "label": "detectWithThreshold",
+        "kind": 2,
+        "importPath": "detect",
+        "description": "detect",
+        "peekOfCode": "def detectWithThreshold(bChannel,threshold=150):\n    ret = []\n    for buffer in bChannel:   \n        ret.append(any(buffer[:,1] >= threshold))    \n    return ret",
+        "detail": "detect",
         "documentation": {}
     },
     {
@@ -133,7 +158,16 @@
         "kind": 2,
         "importPath": "printData",
         "description": "printData",
-        "peekOfCode": "def printBuffer(channel_data, buffers):\n    printOneChannel(channel_data, \"blue\")  # Assuming you meant this function\n    for buffer_point in buffers:\n        plt.axvline(x=buffer_point, color='green', linestyle='--', linewidth=1)",
+        "peekOfCode": "def printBuffer(channel_data, buffers):\n    printOneChannel(channel_data, \"blue\") \n    for buffer_point in buffers:\n        plt.axvline(x=buffer_point, color='green', linestyle='--', linewidth=1)\ndef printThreshold(channel_data, threshold,buffer):\n    printBuffer(channel_data,buffer)\n    plt.axhline(y=threshold, color=\"orange\", linestyle='--', linewidth=1)",
+        "detail": "printData",
+        "documentation": {}
+    },
+    {
+        "label": "printThreshold",
+        "kind": 2,
+        "importPath": "printData",
+        "description": "printData",
+        "peekOfCode": "def printThreshold(channel_data, threshold,buffer):\n    printBuffer(channel_data,buffer)\n    plt.axhline(y=threshold, color=\"orange\", linestyle='--', linewidth=1)",
         "detail": "printData",
         "documentation": {}
     }

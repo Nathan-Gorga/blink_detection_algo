@@ -93,8 +93,14 @@ def printOneChannel(channel_data, color='blue', num=1, name=None):
 
 
 def printBuffer(channel_data, buffers):
-    printOneChannel(channel_data, "blue")  # Assuming you meant this function
+    printOneChannel(channel_data, "blue") 
     
     for buffer_point in buffers:
         plt.axvline(x=buffer_point, color='green', linestyle='--', linewidth=1)
     
+    
+
+
+def printThreshold(channel_data, threshold,buffer):
+    printBuffer(channel_data,buffer)
+    plt.axhline(y=threshold, color="orange", linestyle='--', linewidth=1)
