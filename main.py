@@ -6,7 +6,7 @@ from buffer import bufferSizesFromChannel, bufferChannel
 from detect import detectWithThreshold
 
 if __name__ == "__main__":
-    path = r'C:\Users\gorga\CodeProjects\Arduino\Blink\blink_detection_algo\data\sub-P001_ses-S001_task-Default_run-001_eeg.xdf'
+    path = r'C:\Users\n.gorga\code\processRawData\data\sample_blinks_nathan.xdf'
     raw_data = extract_eeg_data(path)
     channels = segmentChannelData(raw_data)
     bufferSize = 10
