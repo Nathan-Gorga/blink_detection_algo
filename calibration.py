@@ -18,6 +18,7 @@ def findAverageBlinkHeight(is_there_blink_in_buffer :list[bool], segmented_chann
 
             num += 1
 
+
     try:
         
         return total / num 
@@ -28,7 +29,7 @@ def findAverageBlinkHeight(is_there_blink_in_buffer :list[bool], segmented_chann
 
 
 #this calibration is intentionnaly crude for now, we are going to impove it as flase positives and false negatives come in
-def calibrate(path=r'data\calibration\calibration_data.xdf'):
+def calibrate(path=r'data\calibration\calibration_data_nathan.xdf'):
 
     calibration_channel :list[float] = getDataFromFile(path)[0] # TODO : make a better calibration data set, later will be done before blink detection
         

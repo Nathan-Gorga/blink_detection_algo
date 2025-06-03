@@ -156,7 +156,7 @@
         "kind": 2,
         "importPath": "Calibration",
         "description": "Calibration",
-        "peekOfCode": "def calibrate(path=r'data\\calibration\\calibration_data.xdf'):\n    calibration_channel :list[float] = getDataFromFile(path)[0] # TODO : make a better calibration data set, later will be done before blink detection\n    buffer_size :int = 10\n    # find maximal point\n    max_point :float = np.max(calibration_channel)\n    # find baseline\n        # when measuring calibration, make sure a lot of the sample does not contain the signal, mostly noise\n        # we might just let 15 seconds pass and allow the subject to blink normally to calibrate on this data\n    baseline :float = np.mean(calibration_channel) \n    # use 65% for threshold",
+        "peekOfCode": "def calibrate(path=r'data\\calibration\\calibration_data_nathan.xdf'):\n    calibration_channel :list[float] = getDataFromFile(path)[0] # TODO : make a better calibration data set, later will be done before blink detection\n    buffer_size :int = 10\n    # find maximal point\n    max_point :float = np.max(calibration_channel)\n    # find baseline\n        # when measuring calibration, make sure a lot of the sample does not contain the signal, mostly noise\n        # we might just let 15 seconds pass and allow the subject to blink normally to calibrate on this data\n    baseline :float = np.mean(calibration_channel) \n    # use 65% for threshold",
         "detail": "Calibration",
         "documentation": {}
     },
