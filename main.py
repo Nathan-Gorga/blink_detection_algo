@@ -9,9 +9,13 @@ from Buffer import segmentChannelByBuffer
 from Detect import detectWithThreshold
 from PrintData import printTwoBlinks
 
-def detectBlinksFromChannels(channel_data1 :list[float], channel_data2 :list[float], threshold1 :float,threshold2 :float, name):
+def detectBlinksFromChannels(channels :list[list[float]], thresholds :list[float]):
 
-    buffer_size = 10
+    [channel_data1, channel_data2] = channels
+    
+    [threshold1, threshold2] = thresholds
+    
+    buffer_size = 5
     
     segmented_channel_by_buffer1 :list[list[float]] = segmentChannelByBuffer(channel_data1, buffer_size)
     segmented_channel_by_buffer2 :list[list[float]] = segmentChannelByBuffer(channel_data2, buffer_size)
@@ -19,7 +23,10 @@ def detectBlinksFromChannels(channel_data1 :list[float], channel_data2 :list[flo
     is_there_blink_in_buffer1 :list[bool] = detectWithThreshold(segmented_channel_by_buffer1, threshold1)
     is_there_blink_in_buffer2 :list[bool] = detectWithThreshold(segmented_channel_by_buffer2, threshold2)
     
-    [axis1,axis2] = printTwoBlinks(channel_data1,channel_data2, buffer_size, is_there_blink_in_buffer1, is_there_blink_in_buffer2,name)
+    
+    is_there_blink_array = [is_there_blink_in_buffer1,is_there_blink_in_buffer2]
+    
+    [axis1,axis2] = printTwoBlinks(channels, is_there_blink_array, buffer_size)
 
     axis1.axhline(y=threshold1, color="orange", linestyle='--', linewidth=1)
     axis2.axhline(y=threshold2, color="orange", linestyle='--', linewidth=1)
@@ -37,12 +44,15 @@ if __name__ == "__main__":
     [threshold1, threshold2, baseline1, baseline2]  = calibrate(path) 
     
     # path of .xdf file
-
-    channels :list[list[float]] = getDataFromFile(path)# handle the second channel and detect on it too
+    channels :list[list[float]] = getDataFromFile(path)
     
     channels[0] -= baseline1
     channels[1] -= baseline2
     
-    detectBlinksFromChannels(channels[0],channels[1],threshold1,threshold2,path)
+    channel_array = [channels[0],channels[1]]
+    
+    thresholds = [threshold1,threshold2]
+    
+    detectBlinksFromChannels(channel_array,thresholds)
 
     

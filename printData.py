@@ -58,13 +58,19 @@ def printBlinks(channel_data :list[float], buffer_size :int, is_there_blink_in_b
 
         current += buffer_size
 
-def printTwoBlinks(channel1, channel2, buffer_size, is_there_blink_in_buffer1,is_there_blink_in_buffer2, name,color1="blue",color2="red"):
+
+def printTwoBlinks(channels :list[list[float]],is_there_blink_in_buffer_array :list[list[bool]], buffer_size :int,color1="blue",color2="red"):
+
+    [channel1  , channel2] = channels
+    
+    [is_there_blink_in_buffer1, is_there_blink_in_buffer2] = is_there_blink_in_buffer_array
+    
     axis1 = plt.subplot(2,1,1)
-    plt.title(name)
+
+    plt.title("Channels 1 & 2 :")
 
     plt.grid(True)
 
-    
     axis2 = plt.subplot(2,1,2)
 
     plt.grid(True)
@@ -98,8 +104,6 @@ def printTwoBlinks(channel1, channel2, buffer_size, is_there_blink_in_buffer1,is
             axis2.axvline(x=current, color='green', linestyle='--', linewidth=1)
 
         current += buffer_size
-    
-    
     
     return [axis1,axis2]
     
