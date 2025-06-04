@@ -1,0 +1,15 @@
+This document's purpose is to clarify the different ways to record calibration data and which one is best
+
+here are the different types of calibration:
+
+Electrode placement :
+    - electrodes in flat formation (-)
+
+    - electrodes in A formation(A)
+
+    - electrodes in V formation(V)
+
+Events to record during calibration:
+    - no events
+    - clean blinks
+    - fast blinks

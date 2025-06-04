@@ -1,0 +1,81 @@
+
+BLINKS:
+    do nothing
+
+    normal blink 
+
+    forced fast blinks (not repeated, trying to force a fast blink)
+
+    repeated clean blinks
+
+    repeated forced fast blinks
+
+    slow blinks
+
+    squint
+
+    raise eyebrow
+
+    furrow eyebrows
+
+    hard blink
+
+    blink then slow open
+
+    blink when eyes closed
+
+    right/left only (of all kinds)
+
+SACCADES:
+    do nothing
+
+    look far east
+
+    look far west
+
+    look far north
+
+    look far south
+
+
+    look half east
+
+    look half west
+
+    look half north
+
+    look half south
+
+
+    look far north-east
+
+    look far north-west
+
+    look far south-east
+
+    look far south-west
+
+
+    look half north-east
+
+    look half north-west
+
+    look half south-east
+
+    look half south-west
+
+
+    rotate clockwise far
+
+    rotate counter clockwise far
+
+
+    rotate clockwise half
+    
+    rotate counter clockwise half
+
+
+    
+
+
+
